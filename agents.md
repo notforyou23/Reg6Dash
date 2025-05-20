@@ -1,43 +1,77 @@
-# AGENTS.md
+# AGENTS.md – Contributor Guide for Codex + Human Collaboration
 
-## Coding Conventions
-- Follow Python PEP8 style (4 spaces, snake_case).
-- JS/TS should follow Prettier default formatting.
-- No inline functions inside views or route handlers — extract logic to separate helpers.
-- Keep function length under 50 lines when possible.
+This file outlines project-wide expectations for agents and human contributors working in this codebase. It defines structure, code style, commit discipline, and validation procedures.
 
-## File Structure Rules
-- Place shared utilities in `/utils/` or `/lib/`.
-- UI components go under `/components/`.
-- Keep all model or AI logic in `/models/` or `/agents/`.
+---
 
-## Git & Commits
-- Do not create new branches (Codex-enforced).
-- All changes must be committed with:
-  - Clear message summarizing the change.
-  - File citations using `【F:<file_path>†L<line>】`.
-- Keep Git state clean after every commit (`git status` should return nothing new).
-- If pre-commit hooks exist, they must pass. Fix and re-commit if needed.
+## 📁 Project Structure
 
-## Testing & Validation
-- If any test suite exists (like `tests/` or `__tests__/`), run it before final commit:
-  - Python: `pytest tests/`
-  - JS/TS: `npm test` or `vitest`
-- Do not skip testing unless explicitly allowed in task prompt.
-- All static files (e.g. JSON, YAML, Markdown) should pass basic lint checks if configured.
+Use and respect the following conventions:
 
-## PR / Patch Summary Rules
-- Patch summaries must:
-  - List the main changes (in bullet format).
-  - Include citations for all code edits.
-  - Mention whether tests passed (terminal citation).
+- `/scripts/`: Standalone scripts or one-off tools.
+- `/components/`: UI elements or modular front-end logic.
+- `/models/`: Machine learning, algorithms, or domain logic.
+- `/data/`: Static files, config, inputs/outputs, or cached content.
+- `/tests/`: Automated validation logic.
 
-## Optional Tools / Notes
-- Use `pre-commit` if configured (run with `pre-commit run --all-files`)
-- If no formal test exists, run basic lints:
-  - Python: `flake8 .`
-  - JS/TS: `eslint .` or `npx prettier --check .`
+> ⚠️ Only touch what’s needed for the task. Ask or search context if unsure.
 
-## Jason-Specific Note
-- If any player prop model, NFL prediction, or YouTube/Garcia code is updated, double-check model state, cached data, and output integrity.
-- AI-generated code must be validated — don’t blindly trust output. (Yeah, even mine.)
+---
+
+## ✍️ Code Style Guidelines
+
+### Python
+- PEP8 standard: 4 spaces, `snake_case` for functions.
+- Avoid inline imports and side effects in modules.
+- Keep functions under 50 lines unless justified.
+
+### JavaScript / TypeScript
+- Use functional components.
+- Prefer hooks and destructuring.
+- Respect Prettier formatting and ESLint rules.
+
+### Markdown / Docs
+- Use headers, bullets, and short paragraphs.
+- Max line width: 100 characters.
+
+---
+
+## ✅ Validation Instructions
+
+Changes must pass relevant checks before commit:
+
+### Python
+- `pytest tests/`
+- `flake8 .` or `ruff .` if configured
+- `pre-commit run --all-files` if available
+
+### JS/TS
+- `npm test`, `pnpm test`, or `vitest`
+- `eslint .` and `prettier --check .`
+
+> If no tests exist, validate that the app/tool runs without regression.
+
+---
+
+## 🧱 Git Rules
+
+- **Do not create new branches.**
+- Always leave the Git worktree clean: `git status` must be empty post-commit.
+- Use `git commit`, not amend or squash.
+- Follow any configured pre-commit hooks and fix violations before retrying.
+- Do not modify or remove prior commits.
+
+---
+
+## 🧾 Commit / Patch Summary Format
+
+### PR Message Style
+```md
+### Summary
+- What changed and why
+- Which files were touched
+- Any validation steps taken
+
+### Citations
+- Code: `【F:src/tool.py†L12-34】`
+- Terminal: `【cmd-abc123†L4-11】`
