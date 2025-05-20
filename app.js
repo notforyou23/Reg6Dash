@@ -367,17 +367,15 @@ class WeatherDashboard {
         // Create droplet
         const droplet = document.createElement('div');
         droplet.className = 'droplet';
-        
-        // Adjust color based on humidity
+
         if (humidity > 80) {
-            droplet.style.background = '#3b82f6'; // More saturated blue for high humidity
+            droplet.classList.add('high');
         } else if (humidity > 60) {
-            droplet.style.background = '#60a5fa'; // Medium blue
+            droplet.classList.add('medium');
         } else if (humidity > 40) {
-            droplet.style.background = '#93c5fd'; // Light blue
+            droplet.classList.add('low');
         } else {
-            droplet.style.background = '#bfdbfe'; // Very light blue for low humidity
-            droplet.style.opacity = '0.7';
+            droplet.classList.add('very-low');
         }
         
         humidityEl.appendChild(droplet);
@@ -406,17 +404,16 @@ class WeatherDashboard {
         
         const arrow = document.createElement('div');
         arrow.className = 'pressure-arrow';
-        
-        // Set arrow rotation based on trend
+
         if (trendClass.includes('rising')) {
-            arrow.style.transform = 'rotate(-30deg)';
-            circle.style.borderColor = '#10b981'; // Green for rising
+            arrow.classList.add('rising');
+            circle.classList.add('rising');
         } else if (trendClass.includes('falling')) {
-            arrow.style.transform = 'rotate(30deg)';
-            circle.style.borderColor = '#ef4444'; // Red for falling
+            arrow.classList.add('falling');
+            circle.classList.add('falling');
         } else {
-            arrow.style.transform = 'rotate(0deg)';
-            circle.style.borderColor = '#60a5fa'; // Blue for steady
+            arrow.classList.add('steady');
+            circle.classList.add('steady');
         }
         
         pressureIcon.appendChild(circle);
@@ -447,86 +444,44 @@ class WeatherDashboard {
         // Create pressure system visualization
         const pressureSystem = document.createElement('div');
         pressureSystem.className = 'pressure-system';
-        pressureSystem.style.position = 'absolute';
-        pressureSystem.style.width = '120px';
-        pressureSystem.style.height = '120px';
-        pressureSystem.style.top = '40%';
-        pressureSystem.style.left = '30%';
-        pressureSystem.style.transform = 'translate(-50%, -50%)';
-        pressureSystem.style.borderRadius = '50%';
-        pressureSystem.style.opacity = '0.2';
-        
-        // Different styling based on pressure trend
         if (trendClass.includes('rising')) {
-            // High pressure system - clockwise rotation, blue gradient
-            pressureSystem.style.border = '2px solid rgba(59, 130, 246, 0.3)';
-            pressureSystem.style.background = 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 70%)';
-            pressureSystem.style.animation = 'rotate-clockwise 60s linear infinite';
+            pressureSystem.classList.add('rising');
         } else if (trendClass.includes('falling')) {
-            // Low pressure system - counter-clockwise rotation, red gradient
-            pressureSystem.style.border = '2px solid rgba(239, 68, 68, 0.3)';
-            pressureSystem.style.background = 'radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0) 70%)';
-            pressureSystem.style.animation = 'rotate-counterclockwise 60s linear infinite';
+            pressureSystem.classList.add('falling');
         } else {
-            // Steady pressure - subtle pulse, neutral gradient
-            pressureSystem.style.border = '2px solid rgba(148, 163, 184, 0.3)';
-            pressureSystem.style.background = 'radial-gradient(circle, rgba(148, 163, 184, 0.1) 0%, rgba(148, 163, 184, 0) 70%)';
-            pressureSystem.style.animation = 'pulse-pressure 4s ease-in-out infinite alternate';
+            pressureSystem.classList.add('steady');
         }
-        
+
         container.appendChild(pressureSystem);
+
         
         // Keyframes defined in CSS
+
     }
     
     createSolarAnimation(container, uvIndex, solarValue) {
         // Create a sun with size based on solar radiation and color based on UV
         const sun = document.createElement('div');
         sun.className = 'atmospheric-sun';
-        sun.style.position = 'absolute';
-        sun.style.top = '30%';
-        sun.style.right = '25%';
-        
-        // Size based on solar radiation (if available)
-        const solarSize = !isNaN(solarValue) ? 
+        const solarSize = !isNaN(solarValue) ?
             Math.min(65, Math.max(30, 30 + (solarValue / 20))) : 40;
-        
-        sun.style.width = `${solarSize}px`;
-        sun.style.height = `${solarSize}px`;
-        sun.style.borderRadius = '50%';
-        
-        // Color and glow based on UV index
+        sun.style.setProperty('--sun-size', `${solarSize}px`);
+
         if (!isNaN(uvIndex)) {
             if (uvIndex >= 11) {
-                // Extreme UV
-                sun.style.background = '#7e22ce';
-                sun.style.boxShadow = '0 0 30px rgba(126, 34, 206, 0.7)';
-                sun.style.animation = 'uv-extreme-pulse 2s infinite alternate';
+                sun.classList.add('extreme');
             } else if (uvIndex >= 8) {
-                // Very High UV
-                sun.style.background = '#ef4444';
-                sun.style.boxShadow = '0 0 25px rgba(239, 68, 68, 0.7)';
+                sun.classList.add('very-high');
             } else if (uvIndex >= 6) {
-                // High UV
-                sun.style.background = '#f97316';
-                sun.style.boxShadow = '0 0 20px rgba(249, 115, 22, 0.7)';
+                sun.classList.add('high');
             } else if (uvIndex >= 3) {
-                // Moderate UV
-                sun.style.background = '#facc15';
-                sun.style.boxShadow = '0 0 15px rgba(250, 204, 21, 0.7)';
+                sun.classList.add('moderate');
             } else {
-                // Low UV
-                sun.style.background = '#4ade80';
-                sun.style.boxShadow = '0 0 10px rgba(74, 222, 128, 0.7)';
+                sun.classList.add('low');
             }
         } else {
-            // Default if no UV data
-            sun.style.background = '#fcd34d';
-            sun.style.boxShadow = '0 0 15px rgba(252, 211, 77, 0.7)';
+            sun.classList.add('default');
         }
-        
-        // Add a pulsing animation
-        sun.style.animation = sun.style.animation || 'pulse-sun 4s infinite alternate';
         
         // Add UV rays if we have UV data
         if (!isNaN(uvIndex) && uvIndex > 0) {
@@ -535,21 +490,18 @@ class WeatherDashboard {
             
             for (let i = 0; i < rayCount; i++) {
                 const ray = document.createElement('div');
-                ray.style.position = 'absolute';
-                ray.style.top = '50%';
-                ray.style.left = '50%';
-                ray.style.width = '2px';
-                ray.style.height = `${Math.min(25, Math.max(10, uvIndex * 2))}px`;
-                ray.style.transformOrigin = 'center bottom';
-                ray.style.transform = `rotate(${i * (360 / rayCount)}deg) translateY(-25px)`;
-                
-                // Ray color based on UV
-                if (uvIndex >= 11) ray.style.background = '#7e22ce'; // Extreme
-                else if (uvIndex >= 8) ray.style.background = '#ef4444'; // Very high
-                else if (uvIndex >= 6) ray.style.background = '#f97316'; // High
-                else if (uvIndex >= 3) ray.style.background = '#facc15'; // Moderate
-                else ray.style.background = '#4ade80'; // Low
-                
+                ray.className = 'sun-ray';
+                ray.style.setProperty('--ray-height', `${Math.min(25, Math.max(10, uvIndex * 2))}px`);
+                ray.style.setProperty('--ray-rotate', `${i * (360 / rayCount)}deg`);
+
+                let rayColor;
+                if (uvIndex >= 11) rayColor = '#7e22ce';
+                else if (uvIndex >= 8) rayColor = '#ef4444';
+                else if (uvIndex >= 6) rayColor = '#f97316';
+                else if (uvIndex >= 3) rayColor = '#facc15';
+                else rayColor = '#4ade80';
+                ray.style.setProperty('--ray-color', rayColor);
+
                 sun.appendChild(ray);
             }
         }
