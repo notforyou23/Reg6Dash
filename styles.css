@@ -38,6 +38,18 @@ body {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--accent2);
+}
+
+.dashboard-header h2,
+.card h3 {
+  color: var(--accent2);
+}
+
+.big-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent1);
 }
 
 .time-cards {
@@ -60,6 +72,7 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 0.5rem;
+  color: var(--accent1);
 }
 
 .card-grid {
@@ -80,13 +93,9 @@ body {
   transition: transform 0.3s ease;
 }
 
+
 .card:hover {
   transform: translateY(-4px);
-}
-
-.big-value {
-  font-size: 2rem;
-  font-weight: 700;
 }
 
 .sub-value {
