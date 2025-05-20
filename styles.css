@@ -1932,3 +1932,158 @@ h2 {
     font-size: 1rem;
   }
 }
+
+/* New classes to move inline styles from JS */
+.sun-hot {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.9);
+  animation: pulse-sun 3s infinite alternate;
+}
+
+.sun-mild {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
+  animation: pulse-sun 4s infinite alternate;
+}
+
+.sun-cool {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  width: 35px;
+  height: 35px;
+  background: #fcd34d;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(252, 211, 77, 0.6);
+  z-index: 2;
+}
+
+.heat-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0) 70%);
+}
+
+.cloud-light {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  filter: blur(5px);
+}
+
+.dark-cloud {
+  position: absolute;
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 50px;
+  filter: blur(10px);
+}
+
+.snowflake {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+/* Atmospheric pressure system */
+.pressure-system {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  top: 40%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0.2;
+}
+.pressure-system.rising {
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 70%);
+  animation: rotate-clockwise 60s linear infinite;
+}
+.pressure-system.falling {
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0) 70%);
+  animation: rotate-counterclockwise 60s linear infinite;
+}
+.pressure-system.steady {
+  border: 2px solid rgba(148, 163, 184, 0.3);
+  background: radial-gradient(circle, rgba(148, 163, 184, 0.1) 0%, rgba(148, 163, 184, 0) 70%);
+  animation: pulse-pressure 4s ease-in-out infinite alternate;
+}
+.pressure-arrow.rising { transform: rotate(-30deg); }
+.pressure-circle.rising { border-color: #10b981; }
+.pressure-arrow.falling { transform: rotate(30deg); }
+.pressure-circle.falling { border-color: #ef4444; }
+.pressure-arrow.steady { transform: rotate(0deg); }
+.pressure-circle.steady { border-color: #60a5fa; }
+@keyframes rotate-clockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes rotate-counterclockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+/* Solar animation */
+.atmospheric-sun {
+  position: absolute;
+  top: 30%;
+  right: 25%;
+  width: var(--sun-size, 40px);
+  height: var(--sun-size, 40px);
+  border-radius: 50%;
+  animation: pulse-sun 4s infinite alternate;
+}
+.atmospheric-sun.extreme {
+  background: #7e22ce;
+  box-shadow: 0 0 30px rgba(126, 34, 206, 0.7);
+  animation: uv-extreme-pulse 2s infinite alternate;
+}
+.atmospheric-sun.very-high {
+  background: #ef4444;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.7);
+}
+.atmospheric-sun.high {
+  background: #f97316;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.7);
+}
+.atmospheric-sun.moderate {
+  background: #facc15;
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.7);
+}
+.atmospheric-sun.low {
+  background: #4ade80;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.7);
+}
+.atmospheric-sun.default {
+  background: #fcd34d;
+  box-shadow: 0 0 15px rgba(252, 211, 77, 0.7);
+}
+.sun-ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: var(--ray-height, 12px);
+  transform-origin: center bottom;
+  transform: rotate(var(--ray-rotate, 0deg)) translateY(-25px);
+  background: var(--ray-color, #ffffff);
+}
+/* Humidity droplet variations */
+.droplet.high { background: #3b82f6; }
+.droplet.medium { background: #60a5fa; }
+.droplet.low { background: #93c5fd; }
+.droplet.very-low { background: #bfdbfe; opacity: 0.7; }
+
