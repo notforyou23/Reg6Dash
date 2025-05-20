@@ -711,7 +711,8 @@ class WeatherDashboard {
             const saunaStatusElement = document.getElementById("sauna-status");
             const toggleButton = document.getElementById("sauna-toggle");
             const saunaCard = document.getElementById("sauna-info");
-            const saunaInfoElement = document.querySelector(".sauna-info");
+            const saunaInfoElement =
+                document.querySelector(".sauna-info") || saunaCard;
             
             let temperatureInFahrenheit = 0;
             let targetTempFahrenheit = 0;
