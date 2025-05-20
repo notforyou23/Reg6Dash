@@ -272,6 +272,7 @@ class WeatherDashboard {
             container.appendChild(heatWave);
         }
         
+// Keyframes defined in CSS
     }
     
     createMildTempAnimation(container, temperature) {
@@ -343,6 +344,9 @@ class WeatherDashboard {
             container.appendChild(snowflake);
         }
         
+
+        // Keyframes defined in CSS
+
     }
     
     addHumidityAnimation(selector, humidity) {
@@ -449,6 +453,10 @@ class WeatherDashboard {
         }
 
         container.appendChild(pressureSystem);
+
+        
+        // Keyframes defined in CSS
+
     }
     
     createSolarAnimation(container, uvIndex, solarValue) {
@@ -499,6 +507,10 @@ class WeatherDashboard {
         }
         
         container.appendChild(sun);
+
+        
+        // UV extreme pulse keyframes defined in CSS
+
     }
     
     addAtmosphericParticles(container, trendClass) {
@@ -552,56 +564,7 @@ class WeatherDashboard {
             container.appendChild(particle);
         }
         
-        // Add keyframes for particle movement if they don't exist
-        const particleStyle = document.getElementById('atmos-particle-keyframes');
-        if (!particleStyle) {
-            const style = document.createElement('style');
-            style.id = 'atmos-particle-keyframes';
-            style.textContent = `
-            @keyframes float-rise {
-                0% {
-                    transform: translate(0, 0) rotate(0deg);
-                    opacity: 0.1;
-                }
-                50% {
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: translate(0, -100px) rotate(360deg);
-                    opacity: 0.1;
-                }
-            }
-            
-            @keyframes float-fall {
-                0% {
-                    transform: translate(0, -50px) rotate(0deg);
-                    opacity: 0.1;
-                }
-                50% {
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: translate(0, 50px) rotate(360deg);
-                    opacity: 0.1;
-                }
-            }
-            
-            @keyframes float-steady {
-                0% {
-                    transform: translate(-20px, 0) rotate(0deg);
-                    opacity: 0.1;
-                }
-                50% {
-                    opacity: 0.6;
-                    transform: translate(20px, 0) rotate(180deg);
-                }
-                100% {
-                    transform: translate(-20px, 0) rotate(360deg);
-                    opacity: 0.1;
-                }
-            }`;
-            document.head.appendChild(style);
-        }
+        // Keyframes defined in CSS
     }
     
     createWindAnimation(card, windSpeed, windDirection) {
@@ -892,7 +855,11 @@ class WeatherDashboard {
         // Add ambient effects around the house
         this.addHomeAmbientEffects(container, temperature);
         
+
+        // Keyframes defined in CSS
+
         // Animations are defined globally in CSS
+
     }
     
     addHomeAmbientEffects(container, temperature) {
@@ -994,18 +961,7 @@ class WeatherDashboard {
             });
         };
 
-        // Add CSS for better time display
-        const style = document.createElement('style');
-        style.textContent = `
-            .time {
-                transition: opacity 0.5s ease, background 0.5s ease;
-                background-clip: text !important;
-                -webkit-background-clip: text !important;
-                color: transparent !important;
-                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-            }
-        `;
-        document.head.appendChild(style);
+        // Styles moved to CSS
 
         updateTimes();
         setInterval(updateTimes, 50); // More frequent updates for smoother fill
@@ -1644,18 +1600,7 @@ class WeatherDashboard {
         
         offlineOverlay.appendChild(wifiIcon);
         
-        // Add keyframes for static flickering if not exists
-        const styleElement = document.getElementById('static-keyframes');
-        if (!styleElement) {
-            const style = document.createElement('style');
-            style.id = 'static-keyframes';
-            style.textContent = `
-            @keyframes static-flicker {
-                0% { opacity: 0.1; }
-                100% { opacity: 0.4; }
-            }`;
-            document.head.appendChild(style);
-        }
+        // Keyframes defined in CSS
     }
     
     createLockedSaunaEffects(container) {
@@ -1727,31 +1672,7 @@ class WeatherDashboard {
         }
         
         // Add keyframes for lock animation if not exists
-        const lockStyleElement = document.getElementById('lock-keyframes');
-        if (!lockStyleElement) {
-            const style = document.createElement('style');
-            style.id = 'lock-keyframes';
-            style.textContent = `
-            @keyframes lock-pulse {
-                0% { transform: translate(-50%, -50%) scale(1); }
-                50% { transform: translate(-50%, -50%) scale(1.1); }
-                100% { transform: translate(-50%, -50%) scale(1); }
-            }
-            
-            @keyframes ripple {
-                0% { 
-                    width: 30px; 
-                    height: 30px;
-                    opacity: 0.6;
-                }
-                100% { 
-                    width: 80px; 
-                    height: 80px; 
-                    opacity: 0;
-                }
-            }`;
-            document.head.appendChild(style);
-        }
+        // Keyframes defined in CSS
     }
     
     createEmergencyStopEffects(container) {
@@ -1823,25 +1744,7 @@ class WeatherDashboard {
         emergencyOverlay.appendChild(warningSymbol);
         
         // Add keyframes for emergency animations if not exists
-        const emergencyStyleElement = document.getElementById('emergency-keyframes');
-        if (!emergencyStyleElement) {
-            const style = document.createElement('style');
-            style.id = 'emergency-keyframes';
-            style.textContent = `
-            @keyframes emergency-flash {
-                0% { opacity: 0.1; }
-                25% { opacity: 0.3; }
-                50% { opacity: 0.1; }
-                75% { opacity: 0.3; }
-                100% { opacity: 0.1; }
-            }
-            
-            @keyframes warning-pulse {
-                0% { transform: translate(-50%, -50%) scale(0.9); }
-                100% { transform: translate(-50%, -50%) scale(1.1); }
-            }`;
-            document.head.appendChild(style);
-        }
+        // Keyframes defined in CSS
     }
 
     applyDynamicTheme() {
