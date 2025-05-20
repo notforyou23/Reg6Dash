@@ -292,14 +292,6 @@ class WeatherDashboard {
             container.appendChild(heatWave);
         }
         
-        // Add keyframes for heat wave animation
-        const style = document.createElement('style');
-        style.textContent = `
-        @keyframes heat-pulse {
-            0% { transform: scale(0.8); opacity: 0.2; }
-            100% { transform: scale(1.2); opacity: 0.6; }
-        }`;
-        document.head.appendChild(style);
     }
     
     createMildTempAnimation(container, temperature) {
@@ -409,23 +401,6 @@ class WeatherDashboard {
             container.appendChild(snowflake);
         }
         
-        // Add keyframes for snowfall animation
-        const style = document.createElement('style');
-        style.textContent = `
-        @keyframes snowfall {
-            0% { 
-                transform: translateY(-20px) rotate(0deg); 
-                opacity: 0; 
-            }
-            20% { 
-                opacity: 0.8;
-            }
-            100% { 
-                transform: translateY(200px) rotate(360deg); 
-                opacity: 0;
-            }
-        }`;
-        document.head.appendChild(style);
     }
     
     addHumidityAnimation(selector, humidity) {
@@ -655,17 +630,6 @@ class WeatherDashboard {
         }
         
         container.appendChild(sun);
-        
-        // Add UV extreme pulse animation if needed
-        if (!isNaN(uvIndex) && uvIndex >= 11) {
-            const uvStyle = document.createElement('style');
-            uvStyle.textContent = `
-            @keyframes uv-extreme-pulse {
-                0% { background: #7e22ce; box-shadow: 0 0 30px rgba(126, 34, 206, 0.7); }
-                100% { background: #ef4444; box-shadow: 0 0 30px rgba(239, 68, 68, 0.7); }
-            }`;
-            document.head.appendChild(uvStyle);
-        }
     }
     
     addAtmosphericParticles(container, trendClass) {
@@ -852,28 +816,15 @@ class WeatherDashboard {
             particle.style.left = `${xPos}%`;
             particle.style.background = color;
             
-            // Create dynamic animation properties
-            const keyframes = `
-            @keyframes particle-${i} {
-                0% {
-                    transform: translate(0, 0) rotate(0deg);
-                    opacity: ${opacity};
-                }
-                100% {
-                    transform: translate(${-120 - Math.random() * 30}%, ${(Math.random() * 40 - 20)}%) rotate(${Math.random() * 360}deg);
-                    opacity: 0;
-                }
-            }`;
-            
-            // Create and append style element
-            const style = document.createElement('style');
-            style.textContent = keyframes;
-            document.head.appendChild(style);
-            
-            // Apply animation
-            particle.style.animation = `particle-${i} ${10/speed}s ${-delay}s linear infinite`;
-            
-            particles.appendChild(particle);
+        // Set animation variables for varied movement
+        particle.style.setProperty('--endX', `${-120 - Math.random() * 30}%`);
+        particle.style.setProperty('--endY', `${(Math.random() * 40 - 20)}%`);
+        particle.style.setProperty('--rotate', `${Math.random() * 360}deg`);
+        particle.style.setProperty('--startOpacity', opacity);
+        particle.style.setProperty('--duration', `${10 / speed}s`);
+        particle.style.setProperty('--delay', `${-delay}s`);
+        
+        particles.appendChild(particle);
         }
         
         // Create wind lines for texture - vary by wind speed
@@ -1072,25 +1023,7 @@ class WeatherDashboard {
         // Add ambient effects around the house
         this.addHomeAmbientEffects(container, temperature);
         
-        // Add keyframes for animations
-        const style = document.createElement('style');
-        style.textContent = `
-        @keyframes window-glow {
-            0% { opacity: 0.7; box-shadow: 0 0 5px rgba(255, 255, 200, 0.3); }
-            100% { opacity: 1; box-shadow: 0 0 15px rgba(255, 255, 200, 0.8); }
-        }
-        
-        @keyframes rise-fade {
-            0% { 
-                transform: translate(-50%, 0) scale(0.8); 
-                opacity: 0.8;
-            }
-            100% { 
-                transform: translate(-50%, -50px) scale(1.5); 
-                opacity: 0;
-            }
-        }`;
-        document.head.appendChild(style);
+        // Animations are defined globally in CSS
     }
     
     addHomeAmbientEffects(container, temperature) {
