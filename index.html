@@ -23,37 +23,17 @@
         <div class="location">Leonardo, NJ</div>
         <div class="time" id="leonardo-time">00:00:00</div>
       </div>
-      <div class="time-box">
-        <div class="time-fill"></div>
-        <div class="location">Florence, Italy</div>
-        <div class="time" id="florence-time">00:00:00</div>
-      </div>
+        <div class="time-box">
+          <div class="time-fill"></div>
+          <div class="location">Florence, Italy</div>
+          <div class="time" id="florence-time">00:00:00</div>
+        </div>
     </div>
     <header style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 2rem 1rem;">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
         <div style="display: flex; align-items: center; gap: 2rem;">
           <h1 style="font-size: 2rem; font-weight: 700; color: var(--text-light); letter-spacing: -0.5px;">✨ REGINA'S RULE! ✨</h1>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
-            <div class="countdown-message">Florence Family Trip 🇮🇹</div>
-            <div class="countdown-container">
-              <div class="countdown-box">
-                <div class="countdown-value" id="countdown-days">00</div>
-                <div class="countdown-label">Days</div>
-              </div>
-              <div class="countdown-box">
-                <div class="countdown-value" id="countdown-hours">00</div>
-                <div class="countdown-label">Hours</div>
-              </div>
-              <div class="countdown-box">
-                <div class="countdown-value" id="countdown-minutes">00</div>
-                <div class="countdown-label">Minutes</div>
-              </div>
-              <div class="countdown-box">
-                <div class="countdown-value" id="countdown-seconds">00</div>
-                <div class="countdown-label">Seconds</div>
-              </div>
-            </div>
-          </div>
+          <!-- Countdown removed -->
         </div>
       </div>
     </header>
@@ -259,49 +239,5 @@
     }
   </script>
 
-  <!-- Countdown Timer -->
-  <script>
-    function updateCountdown() {
-      const eventDate = new Date('2025-04-12T21:50:00-04:00');
-      const now = new Date();
-      const diff = eventDate - now;
-
-      if (diff <= 0) {
-        document.querySelector('.countdown-container').innerHTML = `
-          <div class="countdown-box" style="min-width: 200px;">
-            <div class="countdown-value" style="font-size: 2.5rem;">🎉</div>
-            <div class="countdown-label">It's go time!</div>
-          </div>
-        `;
-        document.querySelector('.countdown-message').textContent = "Time to pack your bags! 🇮🇹";
-        return;
-      }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-
-      // Update each countdown box with animation if value changed
-      const updateBox = (id, value) => {
-        const box = document.getElementById(id);
-        const currentValue = box.textContent;
-        if (currentValue !== value.toString().padStart(2, '0')) {
-          box.textContent = value.toString().padStart(2, '0');
-          box.parentElement.classList.add('animate');
-          setTimeout(() => box.parentElement.classList.remove('animate'), 500);
-        }
-      };
-
-      updateBox('countdown-days', d);
-      updateBox('countdown-hours', h);
-      updateBox('countdown-minutes', m);
-      updateBox('countdown-seconds', s);
-
-      requestAnimationFrame(updateCountdown);
-    }
-
-    updateCountdown();
-  </script>
 </body>
 </html>
