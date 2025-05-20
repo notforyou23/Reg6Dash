@@ -137,7 +137,7 @@ class WeatherDashboard {
         if (windDir !== undefined) {
             const directionValue = windCard.querySelector('.wind-direction-value');
             directionValue.textContent = this.getWindDirection(windDir);
-            directionValue.style.setProperty('--rotation', `${windDir}deg`);
+//             directionValue.style.setProperty('--rotation', `${windDir}deg`);
         }
 
         // Update Pressure with trend and Solar/UV in combined atmospheric card
@@ -217,7 +217,7 @@ class WeatherDashboard {
         const progress = ((now.getTime() % this.updateInterval) / this.updateInterval) * 100;
         const progressElem = document.getElementById('update-progress');
         if (progressElem) {
-            progressElem.style.width = `${progress}%`;
+//             progressElem.style.width = `${progress}%`;
         }
 
         // Update wind stats
@@ -261,14 +261,14 @@ class WeatherDashboard {
         for (let i = 0; i < 8; i++) {
             const heatWave = document.createElement('div');
             heatWave.className = 'heat-wave';
-            heatWave.style.top = `${Math.random() * 80 + 10}%`;
-            heatWave.style.left = `${Math.random() * 80 + 10}%`;
+//             heatWave.style.top = `${Math.random() * 80 + 10}%`;
+//             heatWave.style.left = `${Math.random() * 80 + 10}%`;
             const size = Math.random() * 40 + 50;
-            heatWave.style.width = `${size}px`;
-            heatWave.style.height = `${size}px`;
+//             heatWave.style.width = `${size}px`;
+//             heatWave.style.height = `${size}px`;
             const duration = Math.random() * 4 + 4;
             const delay = Math.random() * 6;
-            heatWave.style.animation = `heat-pulse ${duration}s ${delay}s infinite alternate`;
+//             heatWave.style.animation = `heat-pulse ${duration}s ${delay}s infinite alternate`;
             container.appendChild(heatWave);
         }
         
@@ -285,13 +285,13 @@ class WeatherDashboard {
         for (let i = 0; i < 3; i++) {
             const cloud = document.createElement('div');
             cloud.className = 'cloud-light';
-            cloud.style.bottom = `${Math.random() * 40 + 20}%`;
-            cloud.style.left = `${Math.random() * 40}%`;
+//             cloud.style.bottom = `${Math.random() * 40 + 20}%`;
+//             cloud.style.left = `${Math.random() * 40}%`;
             const cloudWidth = Math.random() * 40 + 60;
-            cloud.style.width = `${cloudWidth}px`;
-            cloud.style.height = `${cloudWidth * 0.6}px`;
+//             cloud.style.width = `${cloudWidth}px`;
+//             cloud.style.height = `${cloudWidth * 0.6}px`;
             const duration = Math.random() * 20 + 40;
-            cloud.style.animation = `float-cloud ${duration}s infinite alternate ease-in-out`;
+//             cloud.style.animation = `float-cloud ${duration}s infinite alternate ease-in-out`;
             container.appendChild(cloud);
         }
     }
@@ -306,14 +306,14 @@ class WeatherDashboard {
         for (let i = 0; i < 5; i++) {
             const cloud = document.createElement('div');
             cloud.className = 'cloud-light';
-            cloud.style.top = `${Math.random() * 70 + 15}%`;
-            cloud.style.left = `${Math.random() * 70}%`;
+//             cloud.style.top = `${Math.random() * 70 + 15}%`;
+//             cloud.style.left = `${Math.random() * 70}%`;
             const cloudWidth = Math.random() * 60 + 60;
-            cloud.style.width = `${cloudWidth}px`;
-            cloud.style.height = `${cloudWidth * 0.6}px`;
+//             cloud.style.width = `${cloudWidth}px`;
+//             cloud.style.height = `${cloudWidth * 0.6}px`;
             const duration = Math.random() * 20 + 40;
             const delay = Math.random() * 10;
-            cloud.style.animation = `float-cloud ${duration}s ${delay}s infinite alternate ease-in-out`;
+//             cloud.style.animation = `float-cloud ${duration}s ${delay}s infinite alternate ease-in-out`;
             container.appendChild(cloud);
         }
     }
@@ -322,25 +322,25 @@ class WeatherDashboard {
         // Add a dark cloud covering much of the area
         const darkCloud = document.createElement('div');
         darkCloud.className = 'dark-cloud';
-        darkCloud.style.top = '20%';
-        darkCloud.style.left = '20%';
-        darkCloud.style.width = '75%';
-        darkCloud.style.height = '35%';
-        darkCloud.style.animation = 'float-cloud 60s infinite alternate ease-in-out';
+//         darkCloud.style.top = '20%';
+//         darkCloud.style.left = '20%';
+//         darkCloud.style.width = '75%';
+//         darkCloud.style.height = '35%';
+//         darkCloud.style.animation = 'float-cloud 60s infinite alternate ease-in-out';
         container.appendChild(darkCloud);
         
         // Add snowflakes for very cold weather
         for (let i = 0; i < 20; i++) {
             const snowflake = document.createElement('div');
             snowflake.className = 'snowflake';
-            snowflake.style.top = `${Math.random() * 40}%`;
-            snowflake.style.left = `${Math.random() * 90 + 5}%`;
+//             snowflake.style.top = `${Math.random() * 40}%`;
+//             snowflake.style.left = `${Math.random() * 90 + 5}%`;
             const size = Math.random() * 4 + 2;
-            snowflake.style.width = `${size}px`;
-            snowflake.style.height = `${size}px`;
+//             snowflake.style.width = `${size}px`;
+//             snowflake.style.height = `${size}px`;
             const fallDuration = Math.random() * 10 + 15;
             const delay = Math.random() * 10;
-            snowflake.style.animation = `snowfall ${fallDuration}s ${delay}s infinite linear`;
+//             snowflake.style.animation = `snowfall ${fallDuration}s ${delay}s infinite linear`;
             container.appendChild(snowflake);
         }
         
@@ -465,7 +465,7 @@ class WeatherDashboard {
         sun.className = 'atmospheric-sun';
         const solarSize = !isNaN(solarValue) ?
             Math.min(65, Math.max(30, 30 + (solarValue / 20))) : 40;
-        sun.style.setProperty('--sun-size', `${solarSize}px`);
+//         sun.style.setProperty('--sun-size', `${solarSize}px`);
 
         if (!isNaN(uvIndex)) {
             if (uvIndex >= 11) {
@@ -491,8 +491,8 @@ class WeatherDashboard {
             for (let i = 0; i < rayCount; i++) {
                 const ray = document.createElement('div');
                 ray.className = 'sun-ray';
-                ray.style.setProperty('--ray-height', `${Math.min(25, Math.max(10, uvIndex * 2))}px`);
-                ray.style.setProperty('--ray-rotate', `${i * (360 / rayCount)}deg`);
+//                 ray.style.setProperty('--ray-height', `${Math.min(25, Math.max(10, uvIndex * 2))}px`);
+//                 ray.style.setProperty('--ray-rotate', `${i * (360 / rayCount)}deg`);
 
                 let rayColor;
                 if (uvIndex >= 11) rayColor = '#7e22ce';
@@ -500,7 +500,7 @@ class WeatherDashboard {
                 else if (uvIndex >= 6) rayColor = '#f97316';
                 else if (uvIndex >= 3) rayColor = '#facc15';
                 else rayColor = '#4ade80';
-                ray.style.setProperty('--ray-color', rayColor);
+//                 ray.style.setProperty('--ray-color', rayColor);
 
                 sun.appendChild(ray);
             }
@@ -519,17 +519,17 @@ class WeatherDashboard {
         
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
-            particle.style.position = 'absolute';
+//             particle.style.position = 'absolute';
             
             // Random positions
-            particle.style.top = `${Math.random() * 80 + 10}%`;
-            particle.style.left = `${Math.random() * 80 + 10}%`;
+//             particle.style.top = `${Math.random() * 80 + 10}%`;
+//             particle.style.left = `${Math.random() * 80 + 10}%`;
             
             // Size variations
             const size = Math.random() * 3 + 1;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.borderRadius = '50%';
+//             particle.style.width = `${size}px`;
+//             particle.style.height = `${size}px`;
+//             particle.style.borderRadius = '50%';
             
             // Color varies by pressure trend
             let color;
@@ -544,8 +544,8 @@ class WeatherDashboard {
                 color = `rgba(${180 + Math.random() * 40}, ${180 + Math.random() * 40}, ${180 + Math.random() * 40}, ${0.2 + Math.random() * 0.2})`;
             }
             
-            particle.style.background = color;
-            particle.style.boxShadow = `0 0 ${size + 1}px ${color.replace(')', ', 0.5)')}`;
+//             particle.style.background = color;
+//             particle.style.boxShadow = `0 0 ${size + 1}px ${color.replace(')', ', 0.5)')}`;
             
             // Animation direction based on trend
             const duration = Math.random() * 30 + 30;
@@ -559,7 +559,7 @@ class WeatherDashboard {
                 animationName = 'float-steady';
             }
             
-            particle.style.animation = `${animationName} ${duration}s linear infinite`;
+//             particle.style.animation = `${animationName} ${duration}s linear infinite`;
             
             container.appendChild(particle);
         }
@@ -588,7 +588,7 @@ class WeatherDashboard {
         
         // Adjust animation speed based on wind speed
         const turbulenceSpeed = Math.max(1, Math.min(15, 15 - windSpeed * 0.7));
-        turbulence.style.animationDuration = `${turbulenceSpeed}s`;
+//         turbulence.style.animationDuration = `${turbulenceSpeed}s`;
         
         container.appendChild(turbulence);
         
@@ -600,16 +600,16 @@ class WeatherDashboard {
         // Create directional arrow indicator
         const arrowContainer = document.createElement('div');
         arrowContainer.className = 'wind-direction-arrow';
-        arrowContainer.style.transform = `rotate(${windDirection}deg)`;
+//         arrowContainer.style.transform = `rotate(${windDirection}deg)`;
         
         // Adjust size based on wind speed
         const arrowSize = Math.min(80, Math.max(30, 30 + windSpeed * 2));
-        arrowContainer.style.width = `${arrowSize}px`;
-        arrowContainer.style.height = `${arrowSize}px`;
+//         arrowContainer.style.width = `${arrowSize}px`;
+//         arrowContainer.style.height = `${arrowSize}px`;
         
         // Add pulse animation speed based on wind speed
         const pulseSpeed = Math.max(1, 3 - (windSpeed * 0.1));
-        arrowContainer.style.animationDuration = `${pulseSpeed}s`;
+//         arrowContainer.style.animationDuration = `${pulseSpeed}s`;
         
         container.appendChild(arrowContainer);
         
@@ -642,19 +642,19 @@ class WeatherDashboard {
             const color = `hsla(${hue}, ${sat}%, ${light}%, ${opacity})`;
             
             // Set particle styles
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.top = `${yPos}%`;
-            particle.style.left = `${xPos}%`;
-            particle.style.background = color;
+//             particle.style.width = `${size}px`;
+//             particle.style.height = `${size}px`;
+//             particle.style.top = `${yPos}%`;
+//             particle.style.left = `${xPos}%`;
+//             particle.style.background = color;
             
         // Set animation variables for varied movement
-        particle.style.setProperty('--endX', `${-120 - Math.random() * 30}%`);
-        particle.style.setProperty('--endY', `${(Math.random() * 40 - 20)}%`);
-        particle.style.setProperty('--rotate', `${Math.random() * 360}deg`);
-        particle.style.setProperty('--startOpacity', opacity);
-        particle.style.setProperty('--duration', `${10 / speed}s`);
-        particle.style.setProperty('--delay', `${-delay}s`);
+//         particle.style.setProperty('--endX', `${-120 - Math.random() * 30}%`);
+//         particle.style.setProperty('--endY', `${(Math.random() * 40 - 20)}%`);
+//         particle.style.setProperty('--rotate', `${Math.random() * 360}deg`);
+//         particle.style.setProperty('--startOpacity', opacity);
+//         particle.style.setProperty('--duration', `${10 / speed}s`);
+//         particle.style.setProperty('--delay', `${-delay}s`);
         
         particles.appendChild(particle);
         }
@@ -682,19 +682,19 @@ class WeatherDashboard {
             const lineDelay = Math.random() * 3;
             
             // Longer lines for stronger winds
-            line.style.top = `${yPos}%`;
-            line.style.left = `${xPos}%`;
-            line.style.width = `${width}%`;
-            line.style.transform = `rotate(${angle}deg)`;
-            line.style.opacity = lineOpacity.toString();
-            line.style.animation = `wind-line-move ${lineSpeed}s ${-lineDelay}s linear infinite`;
+//             line.style.top = `${yPos}%`;
+//             line.style.left = `${xPos}%`;
+//             line.style.width = `${width}%`;
+//             line.style.transform = `rotate(${angle}deg)`;
+//             line.style.opacity = lineOpacity.toString();
+//             line.style.animation = `wind-line-move ${lineSpeed}s ${-lineDelay}s linear infinite`;
             
             // Width of the line varies with wind speed
-            line.style.height = `${Math.max(1, Math.min(3, windSpeed * 0.1))}px`;
+//             line.style.height = `${Math.max(1, Math.min(3, windSpeed * 0.1))}px`;
             
             // Color intensity based on wind speed
             const lineColor = `rgba(255,255,255,${Math.min(0.8, 0.2 + (windSpeed * 0.03))})`;
-            line.style.background = lineColor;
+//             line.style.background = lineColor;
             
             particles.appendChild(line);
         }
@@ -718,12 +718,12 @@ class WeatherDashboard {
                 const rotateSpeed = Math.max(1.5, 6 - (windSpeed * 0.2));
                 const moveSpeed = Math.max(3, 10 - (windSpeed * 0.4)); 
                 
-                vortex.style.top = `${yPos}%`;
-                vortex.style.left = `${xPos}%`;
-                vortex.style.width = `${size}px`;
-                vortex.style.height = `${size}px`;
-                vortex.style.animationDuration = `${rotateSpeed}s, ${moveSpeed}s`;
-                vortex.style.animationDelay = `0s, ${Math.random() * -5}s`;
+//                 vortex.style.top = `${yPos}%`;
+//                 vortex.style.left = `${xPos}%`;
+//                 vortex.style.width = `${size}px`;
+//                 vortex.style.height = `${size}px`;
+//                 vortex.style.animationDuration = `${rotateSpeed}s, ${moveSpeed}s`;
+//                 vortex.style.animationDelay = `0s, ${Math.random() * -5}s`;
                 
                 particles.appendChild(vortex);
             }
@@ -747,106 +747,106 @@ class WeatherDashboard {
     createHomeAnimation(container, temperature, humidity) {
         // Create a house with windows
         const house = document.createElement('div');
-        house.style.position = 'absolute';
-        house.style.top = '50%';
-        house.style.left = '50%';
-        house.style.transform = 'translate(-50%, -50%)';
-        house.style.width = '80px';
-        house.style.height = '60px';
-        house.style.background = '#c084fc';
-        house.style.borderRadius = '5px';
-        house.style.boxShadow = '0 0 15px rgba(192, 132, 252, 0.3)';
-        house.style.zIndex = '2';
+//         house.style.position = 'absolute';
+//         house.style.top = '50%';
+//         house.style.left = '50%';
+//         house.style.transform = 'translate(-50%, -50%)';
+//         house.style.width = '80px';
+//         house.style.height = '60px';
+//         house.style.background = '#c084fc';
+//         house.style.borderRadius = '5px';
+//         house.style.boxShadow = '0 0 15px rgba(192, 132, 252, 0.3)';
+//         house.style.zIndex = '2';
         container.appendChild(house);
         
         // Create a roof
         const roof = document.createElement('div');
-        roof.style.position = 'absolute';
-        roof.style.top = '-25px';
-        roof.style.left = '-10px';
-        roof.style.width = '100px';
-        roof.style.height = '30px';
-        roof.style.background = '#a855f7';
-        roof.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
-        roof.style.zIndex = '3';
+//         roof.style.position = 'absolute';
+//         roof.style.top = '-25px';
+//         roof.style.left = '-10px';
+//         roof.style.width = '100px';
+//         roof.style.height = '30px';
+//         roof.style.background = '#a855f7';
+//         roof.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+//         roof.style.zIndex = '3';
         house.appendChild(roof);
         
         // Add windows that glow
         const windowLeft = document.createElement('div');
-        windowLeft.style.position = 'absolute';
-        windowLeft.style.top = '15px';
-        windowLeft.style.left = '15px';
-        windowLeft.style.width = '15px';
-        windowLeft.style.height = '15px';
-        windowLeft.style.background = 'rgba(255, 255, 220, 0.9)';
-        windowLeft.style.borderRadius = '2px';
-        windowLeft.style.boxShadow = '0 0 10px rgba(255, 255, 200, 0.5)';
-        windowLeft.style.animation = 'window-glow 4s infinite alternate';
+//         windowLeft.style.position = 'absolute';
+//         windowLeft.style.top = '15px';
+//         windowLeft.style.left = '15px';
+//         windowLeft.style.width = '15px';
+//         windowLeft.style.height = '15px';
+//         windowLeft.style.background = 'rgba(255, 255, 220, 0.9)';
+//         windowLeft.style.borderRadius = '2px';
+//         windowLeft.style.boxShadow = '0 0 10px rgba(255, 255, 200, 0.5)';
+//         windowLeft.style.animation = 'window-glow 4s infinite alternate';
         house.appendChild(windowLeft);
         
         const windowRight = document.createElement('div');
-        windowRight.style.position = 'absolute';
-        windowRight.style.top = '15px';
-        windowRight.style.right = '15px';
-        windowRight.style.width = '15px';
-        windowRight.style.height = '15px';
-        windowRight.style.background = 'rgba(255, 255, 220, 0.9)';
-        windowRight.style.borderRadius = '2px';
-        windowRight.style.boxShadow = '0 0 10px rgba(255, 255, 200, 0.5)';
-        windowRight.style.animation = 'window-glow 4.5s 0.5s infinite alternate';
+//         windowRight.style.position = 'absolute';
+//         windowRight.style.top = '15px';
+//         windowRight.style.right = '15px';
+//         windowRight.style.width = '15px';
+//         windowRight.style.height = '15px';
+//         windowRight.style.background = 'rgba(255, 255, 220, 0.9)';
+//         windowRight.style.borderRadius = '2px';
+//         windowRight.style.boxShadow = '0 0 10px rgba(255, 255, 200, 0.5)';
+//         windowRight.style.animation = 'window-glow 4.5s 0.5s infinite alternate';
         house.appendChild(windowRight);
         
         // Add a door
         const door = document.createElement('div');
-        door.style.position = 'absolute';
-        door.style.bottom = '0';
-        door.style.left = '50%';
-        door.style.transform = 'translateX(-50%)';
-        door.style.width = '20px';
-        door.style.height = '30px';
-        door.style.background = '#9333ea';
-        door.style.borderRadius = '3px 3px 0 0';
+//         door.style.position = 'absolute';
+//         door.style.bottom = '0';
+//         door.style.left = '50%';
+//         door.style.transform = 'translateX(-50%)';
+//         door.style.width = '20px';
+//         door.style.height = '30px';
+//         door.style.background = '#9333ea';
+//         door.style.borderRadius = '3px 3px 0 0';
         house.appendChild(door);
         
         // Add doorknob
         const doorknob = document.createElement('div');
-        doorknob.style.position = 'absolute';
-        doorknob.style.top = '50%';
-        doorknob.style.right = '3px';
-        doorknob.style.width = '3px';
-        doorknob.style.height = '3px';
-        doorknob.style.background = '#ffd700';
-        doorknob.style.borderRadius = '50%';
+//         doorknob.style.position = 'absolute';
+//         doorknob.style.top = '50%';
+//         doorknob.style.right = '3px';
+//         doorknob.style.width = '3px';
+//         doorknob.style.height = '3px';
+//         doorknob.style.background = '#ffd700';
+//         doorknob.style.borderRadius = '50%';
         door.appendChild(doorknob);
         
         // Add smoke coming from chimney if it's cold outside
         if (temperature < 50) {
             const chimney = document.createElement('div');
-            chimney.style.position = 'absolute';
-            chimney.style.top = '-15px';
-            chimney.style.right = '20px';
-            chimney.style.width = '10px';
-            chimney.style.height = '20px';
-            chimney.style.background = '#a855f7';
-            chimney.style.borderRadius = '2px';
-            chimney.style.zIndex = '1';
+//             chimney.style.position = 'absolute';
+//             chimney.style.top = '-15px';
+//             chimney.style.right = '20px';
+//             chimney.style.width = '10px';
+//             chimney.style.height = '20px';
+//             chimney.style.background = '#a855f7';
+//             chimney.style.borderRadius = '2px';
+//             chimney.style.zIndex = '1';
             house.appendChild(chimney);
             
             // Add smoke particles
             for (let i = 0; i < 5; i++) {
                 const smoke = document.createElement('div');
-                smoke.style.position = 'absolute';
-                smoke.style.bottom = '100%';
-                smoke.style.left = '50%';
-                smoke.style.transform = 'translateX(-50%)';
-                smoke.style.width = '15px';
-                smoke.style.height = '15px';
-                smoke.style.background = 'rgba(200, 200, 200, 0.4)';
-                smoke.style.borderRadius = '50%';
-                smoke.style.filter = 'blur(2px)';
+//                 smoke.style.position = 'absolute';
+//                 smoke.style.bottom = '100%';
+//                 smoke.style.left = '50%';
+//                 smoke.style.transform = 'translateX(-50%)';
+//                 smoke.style.width = '15px';
+//                 smoke.style.height = '15px';
+//                 smoke.style.background = 'rgba(200, 200, 200, 0.4)';
+//                 smoke.style.borderRadius = '50%';
+//                 smoke.style.filter = 'blur(2px)';
                 
                 const delay = i * 1.5;
-                smoke.style.animation = `rise-fade 4s ${delay}s infinite`;
+//                 smoke.style.animation = `rise-fade 4s ${delay}s infinite`;
                 
                 chimney.appendChild(smoke);
             }
@@ -865,22 +865,22 @@ class WeatherDashboard {
     addHomeAmbientEffects(container, temperature) {
         // Add ground/lawn
         const ground = document.createElement('div');
-        ground.style.position = 'absolute';
-        ground.style.bottom = '0';
-        ground.style.left = '0';
-        ground.style.width = '100%';
-        ground.style.height = '20%';
+//         ground.style.position = 'absolute';
+//         ground.style.bottom = '0';
+//         ground.style.left = '0';
+//         ground.style.width = '100%';
+//         ground.style.height = '20%';
         
         // Different ground based on temperature
         if (temperature < 32) {
             // Snow
-            ground.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))';
+//             ground.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))';
         } else {
             // Grass
-            ground.style.background = 'linear-gradient(to bottom, rgba(74, 222, 128, 0.2), rgba(74, 222, 128, 0.05))';
+//             ground.style.background = 'linear-gradient(to bottom, rgba(74, 222, 128, 0.2), rgba(74, 222, 128, 0.05))';
         }
         
-        ground.style.borderRadius = '0 0 5px 5px';
+//         ground.style.borderRadius = '0 0 5px 5px';
         container.appendChild(ground);
     }
     
@@ -939,7 +939,7 @@ class WeatherDashboard {
             document.querySelectorAll('.time-fill').forEach((fill, index) => {
                 // Add a slight stagger effect between the fills
                 setTimeout(() => {
-                    fill.style.height = `${fillPercentage}%`;
+//                     fill.style.height = `${fillPercentage}%`;
                 }, index * 100);
             });
 
@@ -957,7 +957,7 @@ class WeatherDashboard {
                 timeElement.style.background = `linear-gradient(to right,
                     hsl(${hue1}, 80%, 75%, ${opacity}) 0%,
                     hsl(${hue2}, 80%, 65%, ${opacity}) 100%)`;
-                timeElement.style.opacity = opacity;
+//                 timeElement.style.opacity = opacity;
             });
         };
 
@@ -1108,7 +1108,7 @@ class WeatherDashboard {
                                 <div class="heating-target">Target: ${targetTempFahrenheit}°F</div>
                                 <div class="heating-progress">
                                     <div class="progress-bar">
-                                        <div class="progress" style="width: ${progressPercent}%"></div>
+//                                         <div class="progress" style="width: ${progressPercent}%"></div>
                                     </div>
                                     <div class="progress-text">${progressPercent}% (${estimatedMinutes} min. remaining)</div>
                                 </div>
@@ -1233,125 +1233,125 @@ class WeatherDashboard {
     createSaunaBackground(container) {
         // Create ground/backdrop
         const ground = document.createElement('div');
-        ground.style.position = 'absolute';
-        ground.style.bottom = '0';
-        ground.style.left = '0';
-        ground.style.width = '100%';
-        ground.style.height = '20%';
-        ground.style.background = 'linear-gradient(to bottom, rgba(74, 100, 50, 0.1), rgba(74, 100, 50, 0.2))';
-        ground.style.zIndex = '1';
+//         ground.style.position = 'absolute';
+//         ground.style.bottom = '0';
+//         ground.style.left = '0';
+//         ground.style.width = '100%';
+//         ground.style.height = '20%';
+//         ground.style.background = 'linear-gradient(to bottom, rgba(74, 100, 50, 0.1), rgba(74, 100, 50, 0.2))';
+//         ground.style.zIndex = '1';
         container.appendChild(ground);
         
         // Create barrel sauna body
         const barrelBody = document.createElement('div');
-        barrelBody.style.position = 'absolute';
-        barrelBody.style.width = '80px';
-        barrelBody.style.height = '60px';
-        barrelBody.style.top = '50%';
-        barrelBody.style.left = '50%';
-        barrelBody.style.transform = 'translate(-50%, -50%)';
-        barrelBody.style.background = 'linear-gradient(to bottom, rgba(160, 82, 45, 0.4), rgba(120, 60, 30, 0.4))';
-        barrelBody.style.borderRadius = '30px';
-        barrelBody.style.zIndex = '2';
-        barrelBody.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.1)';
-        barrelBody.style.overflow = 'hidden';
+//         barrelBody.style.position = 'absolute';
+//         barrelBody.style.width = '80px';
+//         barrelBody.style.height = '60px';
+//         barrelBody.style.top = '50%';
+//         barrelBody.style.left = '50%';
+//         barrelBody.style.transform = 'translate(-50%, -50%)';
+//         barrelBody.style.background = 'linear-gradient(to bottom, rgba(160, 82, 45, 0.4), rgba(120, 60, 30, 0.4))';
+//         barrelBody.style.borderRadius = '30px';
+//         barrelBody.style.zIndex = '2';
+//         barrelBody.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.1)';
+//         barrelBody.style.overflow = 'hidden';
         container.appendChild(barrelBody);
         
         // Create wooden slats for barrel
         for (let i = 0; i < 8; i++) {
             const slat = document.createElement('div');
-            slat.style.position = 'absolute';
-            slat.style.width = '100%';
-            slat.style.height = '8px';
-            slat.style.top = `${i * 8 + 4}px`;
-            slat.style.background = `rgba(${140 + Math.random() * 40}, ${70 + Math.random() * 20}, ${30 + Math.random() * 20}, 0.4)`;
-            slat.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+//             slat.style.position = 'absolute';
+//             slat.style.width = '100%';
+//             slat.style.height = '8px';
+//             slat.style.top = `${i * 8 + 4}px`;
+//             slat.style.background = `rgba(${140 + Math.random() * 40}, ${70 + Math.random() * 20}, ${30 + Math.random() * 20}, 0.4)`;
+//             slat.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
             barrelBody.appendChild(slat);
         }
         
         // Create barrel end circles (front and back)
         const barrelFront = document.createElement('div');
-        barrelFront.style.position = 'absolute';
-        barrelFront.style.width = '20px';
-        barrelFront.style.height = '60px';
-        barrelFront.style.left = '-10px';
-        barrelFront.style.top = '0';
-        barrelFront.style.background = 'rgba(140, 70, 30, 0.5)';
-        barrelFront.style.borderRadius = '30px 0 0 30px';
-        barrelFront.style.zIndex = '3';
+//         barrelFront.style.position = 'absolute';
+//         barrelFront.style.width = '20px';
+//         barrelFront.style.height = '60px';
+//         barrelFront.style.left = '-10px';
+//         barrelFront.style.top = '0';
+//         barrelFront.style.background = 'rgba(140, 70, 30, 0.5)';
+//         barrelFront.style.borderRadius = '30px 0 0 30px';
+//         barrelFront.style.zIndex = '3';
         barrelBody.appendChild(barrelFront);
         
         const barrelBack = document.createElement('div');
-        barrelBack.style.position = 'absolute';
-        barrelBack.style.width = '20px';
-        barrelBack.style.height = '60px';
-        barrelBack.style.right = '-10px';
-        barrelBack.style.top = '0';
-        barrelBack.style.background = 'rgba(140, 70, 30, 0.5)';
-        barrelBack.style.borderRadius = '0 30px 30px 0';
-        barrelBack.style.zIndex = '3';
+//         barrelBack.style.position = 'absolute';
+//         barrelBack.style.width = '20px';
+//         barrelBack.style.height = '60px';
+//         barrelBack.style.right = '-10px';
+//         barrelBack.style.top = '0';
+//         barrelBack.style.background = 'rgba(140, 70, 30, 0.5)';
+//         barrelBack.style.borderRadius = '0 30px 30px 0';
+//         barrelBack.style.zIndex = '3';
         barrelBody.appendChild(barrelBack);
         
         // Create door on the barrel
         const door = document.createElement('div');
-        door.style.position = 'absolute';
-        door.style.width = '24px';
-        door.style.height = '40px';
-        door.style.left = '-5px';
-        door.style.top = '10px';
-        door.style.background = 'rgba(120, 60, 20, 0.6)';
-        door.style.borderRadius = '20px 0 0 20px';
-        door.style.border = '1px solid rgba(80, 40, 10, 0.5)';
-        door.style.zIndex = '4';
+//         door.style.position = 'absolute';
+//         door.style.width = '24px';
+//         door.style.height = '40px';
+//         door.style.left = '-5px';
+//         door.style.top = '10px';
+//         door.style.background = 'rgba(120, 60, 20, 0.6)';
+//         door.style.borderRadius = '20px 0 0 20px';
+//         door.style.border = '1px solid rgba(80, 40, 10, 0.5)';
+//         door.style.zIndex = '4';
         barrelBody.appendChild(door);
         
         // Add handle to door
         const doorHandle = document.createElement('div');
-        doorHandle.style.position = 'absolute';
-        doorHandle.style.width = '4px';
-        doorHandle.style.height = '4px';
-        doorHandle.style.left = '3px';
-        doorHandle.style.top = '20px';
-        doorHandle.style.background = 'rgba(220, 220, 220, 0.8)';
-        doorHandle.style.borderRadius = '50%';
-        doorHandle.style.zIndex = '5';
+//         doorHandle.style.position = 'absolute';
+//         doorHandle.style.width = '4px';
+//         doorHandle.style.height = '4px';
+//         doorHandle.style.left = '3px';
+//         doorHandle.style.top = '20px';
+//         doorHandle.style.background = 'rgba(220, 220, 220, 0.8)';
+//         doorHandle.style.borderRadius = '50%';
+//         doorHandle.style.zIndex = '5';
         door.appendChild(doorHandle);
         
         // Add window to door
         const doorWindow = document.createElement('div');
-        doorWindow.style.position = 'absolute';
-        doorWindow.style.width = '10px';
-        doorWindow.style.height = '10px';
-        doorWindow.style.left = '7px';
-        doorWindow.style.top = '8px';
-        doorWindow.style.background = 'rgba(200, 230, 255, 0.3)';
-        doorWindow.style.borderRadius = '50%';
-        doorWindow.style.border = '1px solid rgba(80, 40, 10, 0.5)';
-        doorWindow.style.zIndex = '5';
+//         doorWindow.style.position = 'absolute';
+//         doorWindow.style.width = '10px';
+//         doorWindow.style.height = '10px';
+//         doorWindow.style.left = '7px';
+//         doorWindow.style.top = '8px';
+//         doorWindow.style.background = 'rgba(200, 230, 255, 0.3)';
+//         doorWindow.style.borderRadius = '50%';
+//         doorWindow.style.border = '1px solid rgba(80, 40, 10, 0.5)';
+//         doorWindow.style.zIndex = '5';
         door.appendChild(doorWindow);
         
         // Create chimney on top
         const chimney = document.createElement('div');
-        chimney.style.position = 'absolute';
-        chimney.style.width = '8px';
-        chimney.style.height = '18px';
-        chimney.style.top = '-15px';
-        chimney.style.right = '20px';
-        chimney.style.background = 'rgba(100, 100, 100, 0.6)';
-        chimney.style.borderRadius = '2px';
-        chimney.style.zIndex = '5';
+//         chimney.style.position = 'absolute';
+//         chimney.style.width = '8px';
+//         chimney.style.height = '18px';
+//         chimney.style.top = '-15px';
+//         chimney.style.right = '20px';
+//         chimney.style.background = 'rgba(100, 100, 100, 0.6)';
+//         chimney.style.borderRadius = '2px';
+//         chimney.style.zIndex = '5';
         barrelBody.appendChild(chimney);
         
         // Create small deck/steps in front of sauna
         const steps = document.createElement('div');
-        steps.style.position = 'absolute';
-        steps.style.width = '30px';
-        steps.style.height = '5px';
-        steps.style.bottom = '20%';
-        steps.style.left = '30%';
-        steps.style.background = 'rgba(120, 60, 20, 0.5)';
-        steps.style.borderRadius = '2px';
-        steps.style.zIndex = '3';
+//         steps.style.position = 'absolute';
+//         steps.style.width = '30px';
+//         steps.style.height = '5px';
+//         steps.style.bottom = '20%';
+//         steps.style.left = '30%';
+//         steps.style.background = 'rgba(120, 60, 20, 0.5)';
+//         steps.style.borderRadius = '2px';
+//         steps.style.zIndex = '3';
         container.appendChild(steps);
     }
     
@@ -1360,179 +1360,179 @@ class WeatherDashboard {
         const steamCount = Math.min(Math.max(3, Math.round(temperature / 20)), 8);
         for (let i = 0; i < steamCount; i++) {
             const steam = document.createElement('div');
-            steam.style.position = 'absolute';
-            steam.style.bottom = '60%';
-            steam.style.right = '39%';
-            steam.style.width = '12px';
-            steam.style.height = '12px';
-            steam.style.background = 'rgba(255, 255, 255, 0.7)';
-            steam.style.borderRadius = '50%';
-            steam.style.filter = 'blur(3px)';
-            steam.style.zIndex = '6';
+//             steam.style.position = 'absolute';
+//             steam.style.bottom = '60%';
+//             steam.style.right = '39%';
+//             steam.style.width = '12px';
+//             steam.style.height = '12px';
+//             steam.style.background = 'rgba(255, 255, 255, 0.7)';
+//             steam.style.borderRadius = '50%';
+//             steam.style.filter = 'blur(3px)';
+//             steam.style.zIndex = '6';
             
             const delay = i * 1.2;
             const duration = Math.random() * 2 + 3;
-            steam.style.animation = `steam-rise ${duration}s ${delay}s infinite`;
+//             steam.style.animation = `steam-rise ${duration}s ${delay}s infinite`;
             
             container.appendChild(steam);
         }
         
         // Add warm glow inside window
         const windowGlow = document.createElement('div');
-        windowGlow.style.position = 'absolute';
-        windowGlow.style.width = '12px';
-        windowGlow.style.height = '12px';
-        windowGlow.style.top = '40%';
-        windowGlow.style.left = '43%';
-        windowGlow.style.background = 'radial-gradient(circle, rgba(255, 200, 100, 0.6) 0%, rgba(255, 150, 50, 0) 70%)';
-        windowGlow.style.borderRadius = '50%';
-        windowGlow.style.filter = 'blur(2px)';
-        windowGlow.style.zIndex = '6';
-        windowGlow.style.animation = 'pulse 2s infinite alternate';
+//         windowGlow.style.position = 'absolute';
+//         windowGlow.style.width = '12px';
+//         windowGlow.style.height = '12px';
+//         windowGlow.style.top = '40%';
+//         windowGlow.style.left = '43%';
+//         windowGlow.style.background = 'radial-gradient(circle, rgba(255, 200, 100, 0.6) 0%, rgba(255, 150, 50, 0) 70%)';
+//         windowGlow.style.borderRadius = '50%';
+//         windowGlow.style.filter = 'blur(2px)';
+//         windowGlow.style.zIndex = '6';
+//         windowGlow.style.animation = 'pulse 2s infinite alternate';
         container.appendChild(windowGlow);
         
         // Add a warm glow around the sauna
         const saunaGlow = document.createElement('div');
-        saunaGlow.style.position = 'absolute';
-        saunaGlow.style.width = '90px';
-        saunaGlow.style.height = '70px';
-        saunaGlow.style.top = '50%';
-        saunaGlow.style.left = '50%';
-        saunaGlow.style.transform = 'translate(-50%, -50%)';
-        saunaGlow.style.background = 'radial-gradient(ellipse, rgba(255, 150, 50, 0.15) 0%, rgba(255, 100, 0, 0) 70%)';
-        saunaGlow.style.borderRadius = '35px';
-        saunaGlow.style.filter = 'blur(5px)';
-        saunaGlow.style.zIndex = '1';
-        saunaGlow.style.animation = 'pulse 3s infinite alternate';
+//         saunaGlow.style.position = 'absolute';
+//         saunaGlow.style.width = '90px';
+//         saunaGlow.style.height = '70px';
+//         saunaGlow.style.top = '50%';
+//         saunaGlow.style.left = '50%';
+//         saunaGlow.style.transform = 'translate(-50%, -50%)';
+//         saunaGlow.style.background = 'radial-gradient(ellipse, rgba(255, 150, 50, 0.15) 0%, rgba(255, 100, 0, 0) 70%)';
+//         saunaGlow.style.borderRadius = '35px';
+//         saunaGlow.style.filter = 'blur(5px)';
+//         saunaGlow.style.zIndex = '1';
+//         saunaGlow.style.animation = 'pulse 3s infinite alternate';
         container.appendChild(saunaGlow);
         
         // Add air distortion effect for heat (similar to home card)
         if (temperature > 100) {
             const heatDistortion = document.createElement('div');
-            heatDistortion.style.position = 'absolute';
-            heatDistortion.style.top = '30%';
-            heatDistortion.style.right = '39%';
-            heatDistortion.style.width = '20px';
-            heatDistortion.style.height = '30px';
-            heatDistortion.style.background = 'transparent';
-            heatDistortion.style.borderRadius = '50%';
-            heatDistortion.style.zIndex = '7';
-            heatDistortion.style.opacity = '0.7';
+//             heatDistortion.style.position = 'absolute';
+//             heatDistortion.style.top = '30%';
+//             heatDistortion.style.right = '39%';
+//             heatDistortion.style.width = '20px';
+//             heatDistortion.style.height = '30px';
+//             heatDistortion.style.background = 'transparent';
+//             heatDistortion.style.borderRadius = '50%';
+//             heatDistortion.style.zIndex = '7';
+//             heatDistortion.style.opacity = '0.7';
             container.appendChild(heatDistortion);
             
             // Add ripple effect with multiple heat waves
             const waveCount = Math.min(Math.max(2, Math.round(temperature / 40)), 4);
             for (let i = 0; i < waveCount; i++) {
                 const heatWave = document.createElement('div');
-                heatWave.style.position = 'absolute';
-                heatWave.style.top = '0';
-                heatWave.style.left = '0';
-                heatWave.style.right = '0';
-                heatWave.style.bottom = '0';
-                heatWave.style.borderRadius = '50%';
-                heatWave.style.border = `1px solid rgba(255, 255, 255, ${0.1 - (i * 0.02)})`;
-                heatWave.style.transform = 'scale(0.8)';
-                heatWave.style.animation = `heat-wave ${2 + i * 0.5}s ${i * 0.5}s infinite`;
+//                 heatWave.style.position = 'absolute';
+//                 heatWave.style.top = '0';
+//                 heatWave.style.left = '0';
+//                 heatWave.style.right = '0';
+//                 heatWave.style.bottom = '0';
+//                 heatWave.style.borderRadius = '50%';
+//                 heatWave.style.border = `1px solid rgba(255, 255, 255, ${0.1 - (i * 0.02)})`;
+//                 heatWave.style.transform = 'scale(0.8)';
+//                 heatWave.style.animation = `heat-wave ${2 + i * 0.5}s ${i * 0.5}s infinite`;
                 heatDistortion.appendChild(heatWave);
             }
         }
         
         // Add a slight orange tint to the barrel when hot
         const barrelTint = document.createElement('div');
-        barrelTint.style.position = 'absolute';
-        barrelTint.style.width = '80px';
-        barrelTint.style.height = '60px';
-        barrelTint.style.top = '50%';
-        barrelTint.style.left = '50%';
-        barrelTint.style.transform = 'translate(-50%, -50%)';
-        barrelTint.style.background = `rgba(255, 100, 0, ${Math.min(0.1, temperature / 1000)})`;
-        barrelTint.style.borderRadius = '30px';
-        barrelTint.style.zIndex = '4';
-        barrelTint.style.mixBlendMode = 'overlay';
+//         barrelTint.style.position = 'absolute';
+//         barrelTint.style.width = '80px';
+//         barrelTint.style.height = '60px';
+//         barrelTint.style.top = '50%';
+//         barrelTint.style.left = '50%';
+//         barrelTint.style.transform = 'translate(-50%, -50%)';
+//         barrelTint.style.background = `rgba(255, 100, 0, ${Math.min(0.1, temperature / 1000)})`;
+//         barrelTint.style.borderRadius = '30px';
+//         barrelTint.style.zIndex = '4';
+//         barrelTint.style.mixBlendMode = 'overlay';
         container.appendChild(barrelTint);
     }
     
     createIdleSaunaEffects(container) {
         // Add cool blue ambient light 
         const coolAmbient = document.createElement('div');
-        coolAmbient.style.position = 'absolute';
-        coolAmbient.style.width = '100%';
-        coolAmbient.style.height = '100%';
-        coolAmbient.style.background = 'linear-gradient(to bottom, rgba(100, 150, 255, 0.05) 0%, rgba(30, 60, 100, 0.05) 100%)';
-        coolAmbient.style.zIndex = '1';
+//         coolAmbient.style.position = 'absolute';
+//         coolAmbient.style.width = '100%';
+//         coolAmbient.style.height = '100%';
+//         coolAmbient.style.background = 'linear-gradient(to bottom, rgba(100, 150, 255, 0.05) 0%, rgba(30, 60, 100, 0.05) 100%)';
+//         coolAmbient.style.zIndex = '1';
         container.appendChild(coolAmbient);
         
         // Add cool glow to window
         const windowGlow = document.createElement('div');
-        windowGlow.style.position = 'absolute';
-        windowGlow.style.width = '10px';
-        windowGlow.style.height = '10px';
-        windowGlow.style.top = '40%';
-        windowGlow.style.left = '43%';
-        windowGlow.style.background = 'radial-gradient(circle, rgba(180, 200, 255, 0.3) 0%, rgba(150, 180, 255, 0) 70%)';
-        windowGlow.style.borderRadius = '50%';
-        windowGlow.style.filter = 'blur(2px)';
-        windowGlow.style.zIndex = '6';
+//         windowGlow.style.position = 'absolute';
+//         windowGlow.style.width = '10px';
+//         windowGlow.style.height = '10px';
+//         windowGlow.style.top = '40%';
+//         windowGlow.style.left = '43%';
+//         windowGlow.style.background = 'radial-gradient(circle, rgba(180, 200, 255, 0.3) 0%, rgba(150, 180, 255, 0) 70%)';
+//         windowGlow.style.borderRadius = '50%';
+//         windowGlow.style.filter = 'blur(2px)';
+//         windowGlow.style.zIndex = '6';
         container.appendChild(windowGlow);
         
         // Add moonlight effect on sauna at night
         const moonlight = document.createElement('div');
-        moonlight.style.position = 'absolute';
-        moonlight.style.width = '150%';
-        moonlight.style.height = '40px';
-        moonlight.style.top = '20%';
-        moonlight.style.left = '-25%';
-        moonlight.style.background = 'linear-gradient(to right, rgba(150, 180, 255, 0) 0%, rgba(150, 180, 255, 0.05) 50%, rgba(150, 180, 255, 0) 100%)';
-        moonlight.style.transform = 'rotate(15deg)';
-        moonlight.style.zIndex = '2';
-        moonlight.style.opacity = '0.7';
+//         moonlight.style.position = 'absolute';
+//         moonlight.style.width = '150%';
+//         moonlight.style.height = '40px';
+//         moonlight.style.top = '20%';
+//         moonlight.style.left = '-25%';
+//         moonlight.style.background = 'linear-gradient(to right, rgba(150, 180, 255, 0) 0%, rgba(150, 180, 255, 0.05) 50%, rgba(150, 180, 255, 0) 100%)';
+//         moonlight.style.transform = 'rotate(15deg)';
+//         moonlight.style.zIndex = '2';
+//         moonlight.style.opacity = '0.7';
         container.appendChild(moonlight);
         
         // Add slight shadow under sauna barrel
         const barrelShadow = document.createElement('div');
-        barrelShadow.style.position = 'absolute';
-        barrelShadow.style.width = '80px';
-        barrelShadow.style.height = '10px';
-        barrelShadow.style.bottom = '20%';
-        barrelShadow.style.left = '50%';
-        barrelShadow.style.transform = 'translateX(-50%)';
-        barrelShadow.style.background = 'radial-gradient(ellipse, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 70%)';
-        barrelShadow.style.borderRadius = '50%';
-        barrelShadow.style.filter = 'blur(5px)';
-        barrelShadow.style.zIndex = '1';
+//         barrelShadow.style.position = 'absolute';
+//         barrelShadow.style.width = '80px';
+//         barrelShadow.style.height = '10px';
+//         barrelShadow.style.bottom = '20%';
+//         barrelShadow.style.left = '50%';
+//         barrelShadow.style.transform = 'translateX(-50%)';
+//         barrelShadow.style.background = 'radial-gradient(ellipse, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 70%)';
+//         barrelShadow.style.borderRadius = '50%';
+//         barrelShadow.style.filter = 'blur(5px)';
+//         barrelShadow.style.zIndex = '1';
         container.appendChild(barrelShadow);
         
         // Add a cool blue tint to the barrel when cold
         const barrelTint = document.createElement('div');
-        barrelTint.style.position = 'absolute';
-        barrelTint.style.width = '80px';
-        barrelTint.style.height = '60px';
-        barrelTint.style.top = '50%';
-        barrelTint.style.left = '50%';
-        barrelTint.style.transform = 'translate(-50%, -50%)';
-        barrelTint.style.background = 'rgba(100, 150, 255, 0.05)';
-        barrelTint.style.borderRadius = '30px';
-        barrelTint.style.zIndex = '4';
-        barrelTint.style.mixBlendMode = 'multiply';
+//         barrelTint.style.position = 'absolute';
+//         barrelTint.style.width = '80px';
+//         barrelTint.style.height = '60px';
+//         barrelTint.style.top = '50%';
+//         barrelTint.style.left = '50%';
+//         barrelTint.style.transform = 'translate(-50%, -50%)';
+//         barrelTint.style.background = 'rgba(100, 150, 255, 0.05)';
+//         barrelTint.style.borderRadius = '30px';
+//         barrelTint.style.zIndex = '4';
+//         barrelTint.style.mixBlendMode = 'multiply';
         container.appendChild(barrelTint);
         
         // Add subtle nighttime particles (like tiny stars or mist)
         for (let i = 0; i < 10; i++) {
             const particle = document.createElement('div');
-            particle.style.position = 'absolute';
-            particle.style.width = '2px';
-            particle.style.height = '2px';
-            particle.style.top = `${Math.random() * 70 + 10}%`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.background = 'rgba(255, 255, 255, 0.3)';
-            particle.style.borderRadius = '50%';
-            particle.style.opacity = Math.random() * 0.5 + 0.1;
-            particle.style.zIndex = '3';
+//             particle.style.position = 'absolute';
+//             particle.style.width = '2px';
+//             particle.style.height = '2px';
+//             particle.style.top = `${Math.random() * 70 + 10}%`;
+//             particle.style.left = `${Math.random() * 100}%`;
+//             particle.style.background = 'rgba(255, 255, 255, 0.3)';
+//             particle.style.borderRadius = '50%';
+//             particle.style.opacity = Math.random() * 0.5 + 0.1;
+//             particle.style.zIndex = '3';
             
             // Add subtle twinkling effect
             const duration = Math.random() * 3 + 2;
             const delay = Math.random() * 5;
-            particle.style.animation = `pulse ${duration}s ${delay}s infinite alternate`;
+//             particle.style.animation = `pulse ${duration}s ${delay}s infinite alternate`;
             
             container.appendChild(particle);
         }
@@ -1541,62 +1541,62 @@ class WeatherDashboard {
     createOfflineSaunaEffects(container) {
         // Add a dark gray overlay to indicate offline status
         const offlineOverlay = document.createElement('div');
-        offlineOverlay.style.position = 'absolute';
-        offlineOverlay.style.width = '100%';
-        offlineOverlay.style.height = '100%';
-        offlineOverlay.style.background = 'linear-gradient(to bottom, rgba(30, 30, 30, 0.4) 0%, rgba(10, 10, 10, 0.6) 100%)';
-        offlineOverlay.style.zIndex = '5';
+//         offlineOverlay.style.position = 'absolute';
+//         offlineOverlay.style.width = '100%';
+//         offlineOverlay.style.height = '100%';
+//         offlineOverlay.style.background = 'linear-gradient(to bottom, rgba(30, 30, 30, 0.4) 0%, rgba(10, 10, 10, 0.6) 100%)';
+//         offlineOverlay.style.zIndex = '5';
         container.appendChild(offlineOverlay);
         
         // Add static noise effect
         for (let i = 0; i < 50; i++) {
             const staticDot = document.createElement('div');
-            staticDot.style.position = 'absolute';
-            staticDot.style.width = '3px';
-            staticDot.style.height = '3px';
-            staticDot.style.top = `${Math.random() * 100}%`;
-            staticDot.style.left = `${Math.random() * 100}%`;
-            staticDot.style.background = 'rgba(255, 255, 255, 0.3)';
-            staticDot.style.borderRadius = '50%';
-            staticDot.style.opacity = Math.random() * 0.3 + 0.1;
-            staticDot.style.zIndex = '6';
+//             staticDot.style.position = 'absolute';
+//             staticDot.style.width = '3px';
+//             staticDot.style.height = '3px';
+//             staticDot.style.top = `${Math.random() * 100}%`;
+//             staticDot.style.left = `${Math.random() * 100}%`;
+//             staticDot.style.background = 'rgba(255, 255, 255, 0.3)';
+//             staticDot.style.borderRadius = '50%';
+//             staticDot.style.opacity = Math.random() * 0.3 + 0.1;
+//             staticDot.style.zIndex = '6';
             
             // Flicker animation for static dots
             const duration = Math.random() * 0.3 + 0.2;
             const delay = Math.random() * 0.5;
-            staticDot.style.animation = `static-flicker ${duration}s ${delay}s infinite alternate`;
+//             staticDot.style.animation = `static-flicker ${duration}s ${delay}s infinite alternate`;
             
             offlineOverlay.appendChild(staticDot);
         }
         
         // Add a wifi icon with a slash through it
         const wifiIcon = document.createElement('div');
-        wifiIcon.style.position = 'absolute';
-        wifiIcon.style.top = '40%';
-        wifiIcon.style.left = '50%';
-        wifiIcon.style.transform = 'translate(-50%, -50%)';
-        wifiIcon.style.width = '40px';
-        wifiIcon.style.height = '40px';
-        wifiIcon.style.zIndex = '7';
-        wifiIcon.style.opacity = '0.8';
+//         wifiIcon.style.position = 'absolute';
+//         wifiIcon.style.top = '40%';
+//         wifiIcon.style.left = '50%';
+//         wifiIcon.style.transform = 'translate(-50%, -50%)';
+//         wifiIcon.style.width = '40px';
+//         wifiIcon.style.height = '40px';
+//         wifiIcon.style.zIndex = '7';
+//         wifiIcon.style.opacity = '0.8';
         wifiIcon.textContent = '📡';
-        wifiIcon.style.fontSize = '24px';
-        wifiIcon.style.display = 'flex';
-        wifiIcon.style.alignItems = 'center';
-        wifiIcon.style.justifyContent = 'center';
+//         wifiIcon.style.fontSize = '24px';
+//         wifiIcon.style.display = 'flex';
+//         wifiIcon.style.alignItems = 'center';
+//         wifiIcon.style.justifyContent = 'center';
         
         // Add a slash through the icon
         const slash = document.createElement('div');
-        slash.style.position = 'absolute';
-        slash.style.width = '50px';
-        slash.style.height = '2px';
-        slash.style.background = 'rgba(239, 68, 68, 0.8)';
-        slash.style.transform = 'rotate(45deg)';
-        slash.style.borderRadius = '1px';
+//         slash.style.position = 'absolute';
+//         slash.style.width = '50px';
+//         slash.style.height = '2px';
+//         slash.style.background = 'rgba(239, 68, 68, 0.8)';
+//         slash.style.transform = 'rotate(45deg)';
+//         slash.style.borderRadius = '1px';
         wifiIcon.appendChild(slash);
         
         // Pulse animation
-        wifiIcon.style.animation = 'pulse 2s infinite alternate';
+//         wifiIcon.style.animation = 'pulse 2s infinite alternate';
         
         offlineOverlay.appendChild(wifiIcon);
         
@@ -1606,67 +1606,67 @@ class WeatherDashboard {
     createLockedSaunaEffects(container) {
         // Add a blue-tinted overlay for locked status
         const lockedOverlay = document.createElement('div');
-        lockedOverlay.style.position = 'absolute';
-        lockedOverlay.style.width = '100%';
-        lockedOverlay.style.height = '100%';
-        lockedOverlay.style.background = 'linear-gradient(to bottom, rgba(30, 64, 175, 0.2) 0%, rgba(30, 58, 138, 0.3) 100%)';
-        lockedOverlay.style.zIndex = '5';
+//         lockedOverlay.style.position = 'absolute';
+//         lockedOverlay.style.width = '100%';
+//         lockedOverlay.style.height = '100%';
+//         lockedOverlay.style.background = 'linear-gradient(to bottom, rgba(30, 64, 175, 0.2) 0%, rgba(30, 58, 138, 0.3) 100%)';
+//         lockedOverlay.style.zIndex = '5';
         container.appendChild(lockedOverlay);
         
         // Add lock icon
         const lockIcon = document.createElement('div');
-        lockIcon.style.position = 'absolute';
-        lockIcon.style.top = '40%';
-        lockIcon.style.left = '50%';
-        lockIcon.style.transform = 'translate(-50%, -50%)';
-        lockIcon.style.width = '30px';
-        lockIcon.style.height = '30px';
-        lockIcon.style.zIndex = '7';
-        lockIcon.style.opacity = '0.9';
+//         lockIcon.style.position = 'absolute';
+//         lockIcon.style.top = '40%';
+//         lockIcon.style.left = '50%';
+//         lockIcon.style.transform = 'translate(-50%, -50%)';
+//         lockIcon.style.width = '30px';
+//         lockIcon.style.height = '30px';
+//         lockIcon.style.zIndex = '7';
+//         lockIcon.style.opacity = '0.9';
         
         // Create the lock body
         const lockBody = document.createElement('div');
-        lockBody.style.position = 'absolute';
-        lockBody.style.width = '20px';
-        lockBody.style.height = '15px';
-        lockBody.style.bottom = '0';
-        lockBody.style.left = '5px';
-        lockBody.style.background = 'rgba(255, 255, 255, 0.9)';
-        lockBody.style.borderRadius = '3px';
+//         lockBody.style.position = 'absolute';
+//         lockBody.style.width = '20px';
+//         lockBody.style.height = '15px';
+//         lockBody.style.bottom = '0';
+//         lockBody.style.left = '5px';
+//         lockBody.style.background = 'rgba(255, 255, 255, 0.9)';
+//         lockBody.style.borderRadius = '3px';
         lockIcon.appendChild(lockBody);
         
         // Create the lock shackle
         const lockShackle = document.createElement('div');
-        lockShackle.style.position = 'absolute';
-        lockShackle.style.width = '14px';
-        lockShackle.style.height = '12px';
-        lockShackle.style.top = '0';
-        lockShackle.style.left = '8px';
-        lockShackle.style.border = '3px solid rgba(255, 255, 255, 0.9)';
-        lockShackle.style.borderBottom = 'none';
-        lockShackle.style.borderRadius = '10px 10px 0 0';
+//         lockShackle.style.position = 'absolute';
+//         lockShackle.style.width = '14px';
+//         lockShackle.style.height = '12px';
+//         lockShackle.style.top = '0';
+//         lockShackle.style.left = '8px';
+//         lockShackle.style.border = '3px solid rgba(255, 255, 255, 0.9)';
+//         lockShackle.style.borderBottom = 'none';
+//         lockShackle.style.borderRadius = '10px 10px 0 0';
         lockIcon.appendChild(lockShackle);
         
         // Pulse animation
-        lockIcon.style.animation = 'lock-pulse 2s infinite alternate';
+//         lockIcon.style.animation = 'lock-pulse 2s infinite alternate';
         lockedOverlay.appendChild(lockIcon);
         
         // Add ripple effects around the lock
         for (let i = 0; i < 3; i++) {
             const ripple = document.createElement('div');
-            ripple.style.position = 'absolute';
-            ripple.style.top = '40%';
-            ripple.style.left = '50%';
-            ripple.style.transform = 'translate(-50%, -50%)';
-            ripple.style.width = '50px';
-            ripple.style.height = '50px';
-            ripple.style.border = '2px solid rgba(255, 255, 255, 0.4)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.zIndex = '6';
-            ripple.style.opacity = '0';
+//             ripple.style.position = 'absolute';
+//             ripple.style.top = '40%';
+//             ripple.style.left = '50%';
+//             ripple.style.transform = 'translate(-50%, -50%)';
+//             ripple.style.width = '50px';
+//             ripple.style.height = '50px';
+//             ripple.style.border = '2px solid rgba(255, 255, 255, 0.4)';
+//             ripple.style.borderRadius = '50%';
+//             ripple.style.zIndex = '6';
+//             ripple.style.opacity = '0';
             
             const delay = i * 1;
-            ripple.style.animation = `ripple 4s ${delay}s infinite linear`;
+//             ripple.style.animation = `ripple 4s ${delay}s infinite linear`;
             
             lockedOverlay.appendChild(ripple);
         }
@@ -1678,67 +1678,67 @@ class WeatherDashboard {
     createEmergencyStopEffects(container) {
         // Add red warning overlay
         const emergencyOverlay = document.createElement('div');
-        emergencyOverlay.style.position = 'absolute';
-        emergencyOverlay.style.width = '100%';
-        emergencyOverlay.style.height = '100%';
-        emergencyOverlay.style.background = 'linear-gradient(to bottom, rgba(220, 38, 38, 0.2) 0%, rgba(185, 28, 28, 0.3) 100%)';
-        emergencyOverlay.style.zIndex = '5';
+//         emergencyOverlay.style.position = 'absolute';
+//         emergencyOverlay.style.width = '100%';
+//         emergencyOverlay.style.height = '100%';
+//         emergencyOverlay.style.background = 'linear-gradient(to bottom, rgba(220, 38, 38, 0.2) 0%, rgba(185, 28, 28, 0.3) 100%)';
+//         emergencyOverlay.style.zIndex = '5';
         container.appendChild(emergencyOverlay);
         
         // Create flashing warning effect
         const warningFlash = document.createElement('div');
-        warningFlash.style.position = 'absolute';
-        warningFlash.style.width = '100%';
-        warningFlash.style.height = '100%';
-        warningFlash.style.background = 'rgba(239, 68, 68, 0.2)';
-        warningFlash.style.zIndex = '6';
-        warningFlash.style.animation = 'emergency-flash 2s infinite alternate';
+//         warningFlash.style.position = 'absolute';
+//         warningFlash.style.width = '100%';
+//         warningFlash.style.height = '100%';
+//         warningFlash.style.background = 'rgba(239, 68, 68, 0.2)';
+//         warningFlash.style.zIndex = '6';
+//         warningFlash.style.animation = 'emergency-flash 2s infinite alternate';
         emergencyOverlay.appendChild(warningFlash);
         
         // Add warning symbol
         const warningSymbol = document.createElement('div');
-        warningSymbol.style.position = 'absolute';
-        warningSymbol.style.top = '40%';
-        warningSymbol.style.left = '50%';
-        warningSymbol.style.transform = 'translate(-50%, -50%)';
-        warningSymbol.style.width = '40px';
-        warningSymbol.style.height = '40px';
-        warningSymbol.style.zIndex = '7';
-        warningSymbol.style.opacity = '0.9';
-        warningSymbol.style.animation = 'warning-pulse 1s infinite alternate';
+//         warningSymbol.style.position = 'absolute';
+//         warningSymbol.style.top = '40%';
+//         warningSymbol.style.left = '50%';
+//         warningSymbol.style.transform = 'translate(-50%, -50%)';
+//         warningSymbol.style.width = '40px';
+//         warningSymbol.style.height = '40px';
+//         warningSymbol.style.zIndex = '7';
+//         warningSymbol.style.opacity = '0.9';
+//         warningSymbol.style.animation = 'warning-pulse 1s infinite alternate';
         
         // Create the warning triangle
         const triangle = document.createElement('div');
-        triangle.style.position = 'absolute';
-        triangle.style.width = '0';
-        triangle.style.height = '0';
-        triangle.style.borderLeft = '20px solid transparent';
-        triangle.style.borderRight = '20px solid transparent';
-        triangle.style.borderBottom = '35px solid rgba(255, 255, 255, 0.9)';
-        triangle.style.top = '0';
-        triangle.style.left = '0';
+//         triangle.style.position = 'absolute';
+//         triangle.style.width = '0';
+//         triangle.style.height = '0';
+//         triangle.style.borderLeft = '20px solid transparent';
+//         triangle.style.borderRight = '20px solid transparent';
+//         triangle.style.borderBottom = '35px solid rgba(255, 255, 255, 0.9)';
+//         triangle.style.top = '0';
+//         triangle.style.left = '0';
         warningSymbol.appendChild(triangle);
         
         // Add exclamation mark
         const exclamation = document.createElement('div');
-        exclamation.style.position = 'absolute';
-        exclamation.style.top = '10px';
-        exclamation.style.left = '18px';
-        exclamation.style.width = '4px';
-        exclamation.style.height = '14px';
-        exclamation.style.background = 'rgba(239, 68, 68, 0.9)';
-        exclamation.style.borderRadius = '2px';
+//         exclamation.style.position = 'absolute';
+//         exclamation.style.top = '10px';
+//         exclamation.style.left = '18px';
+//         exclamation.style.width = '4px';
+//         exclamation.style.height = '14px';
+//         exclamation.style.background = 'rgba(239, 68, 68, 0.9)';
+//         exclamation.style.borderRadius = '2px';
         warningSymbol.appendChild(exclamation);
         
         // Add the dot of the exclamation mark
         const dot = document.createElement('div');
-        dot.style.position = 'absolute';
-        dot.style.bottom = '6px';
-        dot.style.left = '18px';
-        dot.style.width = '4px';
-        dot.style.height = '4px';
-        dot.style.background = 'rgba(239, 68, 68, 0.9)';
-        dot.style.borderRadius = '50%';
+//         dot.style.position = 'absolute';
+//         dot.style.bottom = '6px';
+//         dot.style.left = '18px';
+//         dot.style.width = '4px';
+//         dot.style.height = '4px';
+//         dot.style.background = 'rgba(239, 68, 68, 0.9)';
+//         dot.style.borderRadius = '50%';
         warningSymbol.appendChild(dot);
         
         emergencyOverlay.appendChild(warningSymbol);
