@@ -1,11 +1,11 @@
-/* New Dashboard Style */
+/* Refreshed Dashboard Style */
 :root {
-  --bg1: #10002b;
-  --bg2: #240046;
-  --accent1: #7b2cbf;
-  --accent2: #c77dff;
-  --text-light: #ffffff;
-  --text-muted: #cccccc;
+  --bg: #0d1117;
+  --card-bg: #1f2937;
+  --accent: #38bdf8;
+  --accent-alt: #f472b6;
+  --text-light: #f1f5f9;
+  --text-muted: #9ca3af;
 }
 
 * {
@@ -16,7 +16,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  background: var(--bg);
   color: var(--text-light);
   min-height: 100vh;
   position: relative;
@@ -38,18 +38,18 @@ body {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--accent2);
+  color: var(--accent-alt);
 }
 
 .dashboard-header h2,
 .card h3 {
-  color: var(--accent2);
+  color: var(--accent-alt);
 }
 
 .big-value {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--accent1);
+  color: var(--accent);
 }
 
 .time-cards {
@@ -60,10 +60,9 @@ body {
 }
 
 .time-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1rem 1.5rem;
-  backdrop-filter: blur(4px);
   text-align: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
@@ -72,7 +71,7 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 0.5rem;
-  color: var(--accent1);
+  color: var(--accent);
 }
 
 .card-grid {
@@ -83,10 +82,10 @@ body {
 
 .card {
   position: relative;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1rem;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(4px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
   text-align: center;
   overflow: hidden;
@@ -114,13 +113,13 @@ body {
   border: none;
   border-radius: 8px;
   color: var(--text-light);
-  background: var(--accent1);
+  background: var(--accent);
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .sauna-toggle:hover {
-  background: var(--accent2);
+  background: var(--accent-alt);
 }
 
 .progress-bar {
@@ -134,7 +133,7 @@ body {
 .progress {
   height: 100%;
   width: 0;
-  background: var(--accent1);
+  background: var(--accent);
   transition: width 0.3s ease;
 }
 
@@ -142,7 +141,7 @@ body {
   display: inline-block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: var(--accent2);
+  color: var(--accent-alt);
   text-decoration: none;
 }
 
@@ -172,6 +171,16 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .time-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
