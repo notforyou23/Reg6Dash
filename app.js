@@ -22,8 +22,10 @@ class WeatherDashboard {
     async init() {
         this.initTimeDisplays();
         this.initSaunaControl();
+        this.applyDynamicTheme();
         await this.updateDashboard();
         setInterval(() => this.updateDashboard(), this.updateInterval);
+        setInterval(() => this.applyDynamicTheme(), 60 * 60 * 1000); // update theme hourly
     }
 
     async fetchRealtimeData(retryCount = 0) {
@@ -102,16 +104,16 @@ class WeatherDashboard {
         
         const outdoorCombined = document.querySelector('#outdoor-combined');
         
-        if (temp) {
+        if (temp !== undefined && temp !== null) {
             outdoorCombined.querySelector('.temp-value').textContent = `${parseFloat(temp).toFixed(1)}°F`;
             // Add temperature animations
             this.addTemperatureAnimation('#outdoor-combined', parseFloat(temp));
         }
-        if (feelsLike) {
-            outdoorCombined.querySelector('.feels-like').textContent = 
+        if (feelsLike !== undefined && feelsLike !== null) {
+            outdoorCombined.querySelector('.feels-like').textContent =
                 `Feels like ${parseFloat(feelsLike).toFixed(1)}°F`;
         }
-        if (humidity) {
+        if (humidity !== undefined && humidity !== null) {
             outdoorCombined.querySelector('.humidity-value').textContent = `${parseFloat(humidity).toFixed(0)}%`;
         }
         
@@ -122,13 +124,13 @@ class WeatherDashboard {
         
         const windCard = document.querySelector('#wind-combined');
         
-        if (windSpeed) {
+        if (windSpeed !== undefined && windSpeed !== null) {
             windCard.querySelector('.wind-speed-value').textContent = `${parseFloat(windSpeed).toFixed(1)} mph`;
             // Create wind animation based on speed
             this.createWindAnimation(windCard, parseFloat(windSpeed), windDir);
         }
-        
-        if (windGust) {
+
+        if (windGust !== undefined && windGust !== null) {
             windCard.querySelector('.gust').textContent = `Gust: ${parseFloat(windGust).toFixed(1)} mph`;
         }
         
@@ -149,7 +151,7 @@ class WeatherDashboard {
             // Define trend with a default value
             let trend = { symbol: "→", class: "steady" };
             
-            if (pressure) {
+            if (pressure !== undefined && pressure !== null) {
                 const pressureNum = parseFloat(pressure);
                 this.pressureHistory.push(pressureNum);
                 if (this.pressureHistory.length > this.pressureHistoryMaxLength) {
@@ -1152,11 +1154,6 @@ class WeatherDashboard {
             document.getElementById('leonardo-time').textContent =
                 leonardoTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
             
-            // Florence, Italy (Central European Time)
-            const florenceTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Rome" }));
-            document.getElementById('florence-time').textContent =
-                florenceTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: false });
-            
             // Update liquid fill effect with spring animation
             const seconds = now.getSeconds();
             const milliseconds = now.getMilliseconds();
@@ -1165,18 +1162,15 @@ class WeatherDashboard {
             const fillPercentage = ((seconds + (milliseconds / 1000)) / 60) * 100;
             
             // Apply the fill height to the fill elements with a slight delay between them
-            document.querySelectorAll('.time-fill').forEach((fill, index) => {
-                // Add a slight stagger effect between the fills
-                setTimeout(() => {
-                    fill.style.height = `${fillPercentage}%`;
-                }, index * 100);
+            document.querySelectorAll('.time-fill').forEach((fill) => {
+                fill.style.height = `${fillPercentage}%`;
             });
             
             // Add subtle glow effect instead of pulse
-            document.querySelectorAll('.time').forEach((timeElement, index) => {
+            document.querySelectorAll('.time').forEach((timeElement) => {
                 // Create subtle color animation based on seconds and minutes
-                const hue1 = index === 0 ? 230 : 330; // Base hue for each clock (blue/purple)
-                const hue2 = index === 0 ? 250 : 350; // Target hue (slightly different)
+                const hue1 = 230;
+                const hue2 = 250;
                 
                 // Calculate progress through the minute for subtle animation
                 const progress = seconds / 60;
@@ -2038,6 +2032,38 @@ class WeatherDashboard {
             }`;
             document.head.appendChild(style);
         }
+    }
+
+    applyDynamicTheme() {
+        const now = new Date();
+        const hour = now.getHours();
+        const month = now.getMonth();
+
+        let season = 'spring';
+        if (month <= 1 || month === 11) {
+            season = 'winter';
+        } else if (month >= 2 && month <= 4) {
+            season = 'spring';
+        } else if (month >= 5 && month <= 7) {
+            season = 'summer';
+        } else {
+            season = 'fall';
+        }
+
+        let timeOfDay = 'day';
+        if (hour >= 5 && hour < 12) {
+            timeOfDay = 'morning';
+        } else if (hour >= 12 && hour < 17) {
+            timeOfDay = 'day';
+        } else if (hour >= 17 && hour < 20) {
+            timeOfDay = 'evening';
+        } else {
+            timeOfDay = 'night';
+        }
+
+        const body = document.body;
+        body.classList.remove('spring','summer','fall','winter','morning','day','evening','night');
+        body.classList.add(season, timeOfDay);
     }
 
 
