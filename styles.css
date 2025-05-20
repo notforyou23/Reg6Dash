@@ -215,7 +215,11 @@ h1 {
   margin-bottom: 0.5rem;
   line-height: 1;
   letter-spacing: -0.5px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ease, background 0.5s ease;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 .time-box:first-child .time {
@@ -1077,6 +1081,89 @@ h2 {
     transform: scale(0.95);
     opacity: 0.7;
   }
+}
+
+@keyframes heat-pulse {
+  0% { transform: scale(0.8); opacity: 0.2; }
+  100% { transform: scale(1.2); opacity: 0.6; }
+}
+
+@keyframes snowfall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes rotate-clockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotate-counterclockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes uv-extreme-pulse {
+  0% { background: #7e22ce; box-shadow: 0 0 30px rgba(126, 34, 206, 0.7); }
+  100% { background: #ef4444; box-shadow: 0 0 30px rgba(239, 68, 68, 0.7); }
+}
+
+@keyframes float-rise {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0.1; }
+  50% { opacity: 0.8; }
+  100% { transform: translate(0, -100px) rotate(360deg); opacity: 0.1; }
+}
+
+@keyframes float-fall {
+  0% { transform: translate(0, -50px) rotate(0deg); opacity: 0.1; }
+  50% { opacity: 0.8; }
+  100% { transform: translate(0, 50px) rotate(360deg); opacity: 0.1; }
+}
+
+@keyframes float-steady {
+  0% { transform: translate(-20px, 0) rotate(0deg); opacity: 0.1; }
+  50% { opacity: 0.6; transform: translate(20px, 0) rotate(180deg); }
+  100% { transform: translate(-20px, 0) rotate(360deg); opacity: 0.1; }
+}
+
+@keyframes window-glow {
+  0% { opacity: 0.7; box-shadow: 0 0 5px rgba(255, 255, 200, 0.3); }
+  100% { opacity: 1; box-shadow: 0 0 15px rgba(255, 255, 200, 0.8); }
+}
+
+@keyframes rise-fade {
+  0% { transform: translate(-50%, 0) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50px) scale(1.5); opacity: 0; }
+}
+
+@keyframes static-flicker {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes lock-pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes ripple {
+  0% { width: 30px; height: 30px; opacity: 0.6; }
+  100% { width: 80px; height: 80px; opacity: 0; }
+}
+
+@keyframes emergency-flash {
+  0% { opacity: 0.1; }
+  25% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+  75% { opacity: 0.3; }
+  100% { opacity: 0.1; }
+}
+
+@keyframes warning-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.9); }
+  100% { transform: translate(-50%, -50%) scale(1.1); }
 }
 
 /* Outdoor temperature */
