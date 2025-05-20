@@ -581,10 +581,10 @@ class WeatherDashboard {
         // Create turbulence background effect - make it more dynamic
         const turbulence = document.createElement('div');
         turbulence.className = 'wind-turbulence';
-        turbulence.style.background = `linear-gradient(${gradientDirection}, 
-            rgba(96, 165, 250, 0) 0%, 
-            rgba(96, 165, 250, ${0.05 + (windSpeed * 0.005)}) 50%, 
-            rgba(96, 165, 250, 0) 100%)`;
+//         turbulence.style.background = `linear-gradient(${gradientDirection}, 
+//             rgba(96, 165, 250, 0) 0%, 
+//             rgba(96, 165, 250, ${0.05 + (windSpeed * 0.005)}) 50%, 
+//             rgba(96, 165, 250, 0) 100%)`;
         
         // Adjust animation speed based on wind speed
         const turbulenceSpeed = Math.max(1, Math.min(15, 15 - windSpeed * 0.7));
@@ -954,9 +954,9 @@ class WeatherDashboard {
                 const opacity = 0.8 + (Math.sin(progress * Math.PI) * 0.2);
 
                 // Apply gradient with subtle animation
-                timeElement.style.background = `linear-gradient(to right,
-                    hsl(${hue1}, 80%, 75%, ${opacity}) 0%,
-                    hsl(${hue2}, 80%, 65%, ${opacity}) 100%)`;
+//                 timeElement.style.background = `linear-gradient(to right,
+//                     hsl(${hue1}, 80%, 75%, ${opacity}) 0%,
+//                     hsl(${hue2}, 80%, 65%, ${opacity}) 100%)`;
 //                 timeElement.style.opacity = opacity;
             });
         };
@@ -1108,7 +1108,7 @@ class WeatherDashboard {
                                 <div class="heating-target">Target: ${targetTempFahrenheit}°F</div>
                                 <div class="heating-progress">
                                     <div class="progress-bar">
-//                                         <div class="progress" style="width: ${progressPercent}%"></div>
+                                <!-- <div class="progress" style="width: ${progressPercent}%"></div> -->
                                     </div>
                                     <div class="progress-text">${progressPercent}% (${estimatedMinutes} min. remaining)</div>
                                 </div>
