@@ -254,41 +254,21 @@ class WeatherDashboard {
     createHotTempAnimation(container, temperature) {
         // Add a sun in the top right
         const sun = document.createElement('div');
-        sun.className = 'sun';
-        sun.style.position = 'absolute';
-        sun.style.top = '20px';
-        sun.style.right = '20px';
-        sun.style.width = '60px';
-        sun.style.height = '60px';
-        sun.style.background = '#f59e0b';
-        sun.style.borderRadius = '50%';
-        sun.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.9)';
-        sun.style.animation = 'pulse-sun 3s infinite alternate';
+        sun.className = 'sun-hot';
         container.appendChild(sun);
         
         // Add heat wave effects
         for (let i = 0; i < 8; i++) {
             const heatWave = document.createElement('div');
-            heatWave.style.position = 'absolute';
-            
-            // Random positions throughout the container
+            heatWave.className = 'heat-wave';
             heatWave.style.top = `${Math.random() * 80 + 10}%`;
             heatWave.style.left = `${Math.random() * 80 + 10}%`;
-            
-            // Size variations
             const size = Math.random() * 40 + 50;
             heatWave.style.width = `${size}px`;
             heatWave.style.height = `${size}px`;
-            
-            // Styling
-            heatWave.style.background = 'radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0) 70%)';
-            heatWave.style.borderRadius = '50%';
-            
-            // Animation
             const duration = Math.random() * 4 + 4;
             const delay = Math.random() * 6;
             heatWave.style.animation = `heat-pulse ${duration}s ${delay}s infinite alternate`;
-            
             container.appendChild(heatWave);
         }
         
@@ -298,35 +278,20 @@ class WeatherDashboard {
     createMildTempAnimation(container, temperature) {
         // Mild sun
         const sun = document.createElement('div');
-        sun.className = 'sun';
-        sun.style.position = 'absolute';
-        sun.style.top = '30px';
-        sun.style.right = '30px';
-        sun.style.width = '50px';
-        sun.style.height = '50px';
-        sun.style.background = '#f59e0b';
-        sun.style.borderRadius = '50%';
-        sun.style.boxShadow = '0 0 20px rgba(245, 158, 11, 0.7)';
-        sun.style.animation = 'pulse-sun 4s infinite alternate';
+        sun.className = 'sun-mild';
         container.appendChild(sun);
         
         // Add some light clouds
         for (let i = 0; i < 3; i++) {
             const cloud = document.createElement('div');
-            cloud.style.position = 'absolute';
+            cloud.className = 'cloud-light';
             cloud.style.bottom = `${Math.random() * 40 + 20}%`;
             cloud.style.left = `${Math.random() * 40}%`;
-            
             const cloudWidth = Math.random() * 40 + 60;
             cloud.style.width = `${cloudWidth}px`;
             cloud.style.height = `${cloudWidth * 0.6}px`;
-            cloud.style.background = 'rgba(255, 255, 255, 0.15)';
-            cloud.style.borderRadius = '50px';
-            cloud.style.filter = 'blur(5px)';
-            
             const duration = Math.random() * 20 + 40;
             cloud.style.animation = `float-cloud ${duration}s infinite alternate ease-in-out`;
-            
             container.appendChild(cloud);
         }
     }
@@ -334,35 +299,21 @@ class WeatherDashboard {
     createCoolTempAnimation(container, temperature) {
         // Smaller sun with clouds
         const sun = document.createElement('div');
-        sun.style.position = 'absolute';
-        sun.style.top = '30px';
-        sun.style.right = '40px';
-        sun.style.width = '35px';
-        sun.style.height = '35px';
-        sun.style.background = '#fcd34d';
-        sun.style.borderRadius = '50%';
-        sun.style.boxShadow = '0 0 15px rgba(252, 211, 77, 0.6)';
-        sun.style.zIndex = '2';
+        sun.className = 'sun-cool';
         container.appendChild(sun);
         
         // Add more clouds for the cool weather
         for (let i = 0; i < 5; i++) {
             const cloud = document.createElement('div');
-            cloud.style.position = 'absolute';
+            cloud.className = 'cloud-light';
             cloud.style.top = `${Math.random() * 70 + 15}%`;
             cloud.style.left = `${Math.random() * 70}%`;
-            
             const cloudWidth = Math.random() * 60 + 60;
             cloud.style.width = `${cloudWidth}px`;
             cloud.style.height = `${cloudWidth * 0.6}px`;
-            cloud.style.background = 'rgba(203, 213, 225, 0.25)';
-            cloud.style.borderRadius = '50px';
-            cloud.style.filter = 'blur(4px)';
-            
             const duration = Math.random() * 20 + 40;
             const delay = Math.random() * 10;
             cloud.style.animation = `float-cloud ${duration}s ${delay}s infinite alternate ease-in-out`;
-            
             container.appendChild(cloud);
         }
     }
@@ -370,35 +321,26 @@ class WeatherDashboard {
     createColdTempAnimation(container, temperature) {
         // Add a dark cloud covering much of the area
         const darkCloud = document.createElement('div');
-        darkCloud.style.position = 'absolute';
+        darkCloud.className = 'dark-cloud';
         darkCloud.style.top = '20%';
         darkCloud.style.left = '20%';
         darkCloud.style.width = '75%';
         darkCloud.style.height = '35%';
-        darkCloud.style.background = 'rgba(148, 163, 184, 0.3)';
-        darkCloud.style.borderRadius = '50px';
-        darkCloud.style.filter = 'blur(10px)';
         darkCloud.style.animation = 'float-cloud 60s infinite alternate ease-in-out';
         container.appendChild(darkCloud);
         
         // Add snowflakes for very cold weather
         for (let i = 0; i < 20; i++) {
             const snowflake = document.createElement('div');
-            snowflake.style.position = 'absolute';
+            snowflake.className = 'snowflake';
             snowflake.style.top = `${Math.random() * 40}%`;
             snowflake.style.left = `${Math.random() * 90 + 5}%`;
-            
             const size = Math.random() * 4 + 2;
             snowflake.style.width = `${size}px`;
             snowflake.style.height = `${size}px`;
-            snowflake.style.background = 'rgba(255, 255, 255, 0.8)';
-            snowflake.style.borderRadius = '50%';
-            snowflake.style.filter = 'blur(0.5px)';
-            
             const fallDuration = Math.random() * 10 + 15;
             const delay = Math.random() * 10;
             snowflake.style.animation = `snowfall ${fallDuration}s ${delay}s infinite linear`;
-            
             container.appendChild(snowflake);
         }
         

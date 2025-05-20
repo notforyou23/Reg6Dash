@@ -2019,3 +2019,67 @@ h2 {
     font-size: 1rem;
   }
 }
+
+/* New classes to move inline styles from JS */
+.sun-hot {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.9);
+  animation: pulse-sun 3s infinite alternate;
+}
+
+.sun-mild {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
+  animation: pulse-sun 4s infinite alternate;
+}
+
+.sun-cool {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  width: 35px;
+  height: 35px;
+  background: #fcd34d;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(252, 211, 77, 0.6);
+  z-index: 2;
+}
+
+.heat-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0) 70%);
+}
+
+.cloud-light {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  filter: blur(5px);
+}
+
+.dark-cloud {
+  position: absolute;
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 50px;
+  filter: blur(10px);
+}
+
+.snowflake {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
