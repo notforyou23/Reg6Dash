@@ -1148,37 +1148,45 @@ class WeatherDashboard {
     initTimeDisplays() {
         const updateTimes = () => {
             const now = new Date();
-            
+
             // Leonardo, NJ (Eastern Time)
             const leonardoTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
             document.getElementById('leonardo-time').textContent =
                 leonardoTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
-            
+
+            // Florence, Italy (Central European Time)
+            const florenceTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Rome" }));
+            document.getElementById('florence-time').textContent =
+                florenceTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: false });
+
             // Update liquid fill effect with spring animation
             const seconds = now.getSeconds();
             const milliseconds = now.getMilliseconds();
-            
+
             // Make it smoother by including milliseconds (0-1 value for the current second)
             const fillPercentage = ((seconds + (milliseconds / 1000)) / 60) * 100;
-            
+
             // Apply the fill height to the fill elements with a slight delay between them
-            document.querySelectorAll('.time-fill').forEach((fill) => {
-                fill.style.height = `${fillPercentage}%`;
+            document.querySelectorAll('.time-fill').forEach((fill, index) => {
+                // Add a slight stagger effect between the fills
+                setTimeout(() => {
+                    fill.style.height = `${fillPercentage}%`;
+                }, index * 100);
             });
-            
+
             // Add subtle glow effect instead of pulse
-            document.querySelectorAll('.time').forEach((timeElement) => {
+            document.querySelectorAll('.time').forEach((timeElement, index) => {
                 // Create subtle color animation based on seconds and minutes
-                const hue1 = 230;
-                const hue2 = 250;
-                
+                const hue1 = index === 0 ? 230 : 330; // Base hue for each clock (blue/purple)
+                const hue2 = index === 0 ? 250 : 350; // Target hue (slightly different)
+
                 // Calculate progress through the minute for subtle animation
                 const progress = seconds / 60;
                 const opacity = 0.8 + (Math.sin(progress * Math.PI) * 0.2);
-                
+
                 // Apply gradient with subtle animation
-                timeElement.style.background = `linear-gradient(to right, 
-                    hsl(${hue1}, 80%, 75%, ${opacity}) 0%, 
+                timeElement.style.background = `linear-gradient(to right,
+                    hsl(${hue1}, 80%, 75%, ${opacity}) 0%,
                     hsl(${hue2}, 80%, 65%, ${opacity}) 100%)`;
                 timeElement.style.opacity = opacity;
             });
