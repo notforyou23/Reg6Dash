@@ -2,241 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Weather Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regina Dashboard</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#111827">
-  <meta name="theme-color" content="#111827" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="styles.css">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="particles-js"></div>
-  <div class="dashboard">
-    <div class="time-display">
-      <div class="time-box">
-        <div class="time-fill"></div>
-        <div class="location">Leonardo, NJ</div>
-        <div class="time" id="leonardo-time">00:00:00</div>
-      </div>
-        <div class="time-box">
-          <div class="time-fill"></div>
-          <div class="location">Florence, Italy</div>
-          <div class="time" id="florence-time">00:00:00</div>
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <h1>Regina's Dashboard</h1>
+      <div class="time-cards">
+        <div class="time-card">
+          <h2>Leonardo</h2>
+          <div id="leonardo-time" class="time-value">00:00:00</div>
         </div>
-    </div>
-    <header style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 2rem 1rem;">
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-        <div style="display: flex; align-items: center; gap: 2rem;">
-          <h1 style="font-size: 2rem; font-weight: 700; color: var(--text-light); letter-spacing: -0.5px;">✨ REGINA'S RULE! ✨</h1>
-          <!-- Countdown removed -->
+        <div class="time-card">
+          <h2>Florence</h2>
+          <div id="florence-time" class="time-value">00:00:00</div>
         </div>
       </div>
     </header>
-    
-    <div class="weather-grid">
-      <!-- Sauna Control Section -->
-      <div class="section-card">
-        <h2>Sauna Control</h2>
-        <div class="sauna-card" id="sauna-info">
-          <div class="sauna-animation-container"></div>
-          <div class="sauna-info">
-            <h3>Temperature</h3>
-            <div class="value" id="sauna-temperature">--°F</div>
-            <div class="status-text" id="sauna-status">Unknown</div>
-            <button id="sauna-toggle" class="sauna-toggle">Turn Sauna On</button>
-          </div>
+    <section class="card-grid">
+      <article class="card sauna-card" id="sauna-info">
+        <div class="sauna-animation-container"></div>
+        <h3>Sauna</h3>
+        <div id="sauna-temperature" class="big-value">--°F</div>
+        <div id="sauna-status" class="status-text">Unknown</div>
+        <button id="sauna-toggle" class="sauna-toggle">Turn Sauna On</button>
+      </article>
+      <article class="card" id="outdoor-combined">
+        <div class="temp-animation-container"></div>
+        <h3>Outside</h3>
+        <div class="big-value temp-value">--°F</div>
+        <div class="sub-value humidity-value">--%</div>
+        <div class="feels-like">Feels like --°F</div>
+      </article>
+      <article class="card" id="atmospheric-combined">
+        <div class="atmos-animation-container"></div>
+        <h3>Atmosphere</h3>
+        <div class="pressure-value">-- inHg</div>
+        <div class="trend-indicator">--</div>
+        <div class="solar-value">-- W/m²</div>
+        <div class="uv-value">UV: --</div>
+      </article>
+      <article class="card" id="wind-combined">
+        <div class="wind-animation-container"></div>
+        <h3>Wind</h3>
+        <div class="big-value wind-speed-value">-- mph</div>
+        <div class="sub-value wind-direction-value">--</div>
+        <div class="gust">Gust: -- mph</div>
+        <div class="high">Today's High: -- mph</div>
+      </article>
+      <article class="card" id="indoor-combined">
+        <div class="home-animation-container"></div>
+        <h3>Home</h3>
+        <div class="value">--°F | --%</div>
+      </article>
+      <article class="card" id="sauna-sensor">
+        <div class="home-animation-container"></div>
+        <h3>Sauna Sensor</h3>
+        <div class="value">--°F | --%</div>
+      </article>
+      <article class="card" id="last-update">
+        <h3>Last Update</h3>
+        <div id="update-time" class="value">--:--:--</div>
+        <div class="progress-bar">
+          <div id="update-progress" class="progress"></div>
         </div>
-      </div>
-
-      <!-- Temperature, Humidity & Atmospheric Section -->
-      <div class="section-card">
-        <h2>Weather</h2>
-        <div class="weather-card-grid">
-          <div class="temp-card" id="outdoor-combined">
-            <div class="temp-animation-container"></div>
-            <div class="temp-info">
-              <div class="temp-main">
-                <div class="temp-value">--°F</div>
-                <div class="humidity-value">--%</div>
-              </div>
-              <div class="temp-details">
-                <div class="feels-like">Feels like --°F</div>
-              </div>
-            </div>
-          </div>
-          <div class="atmos-card" id="atmospheric-combined">
-            <div class="atmos-animation-container"></div>
-            <div class="atmos-info">
-              <div class="atmos-main">
-                <div class="pressure-container">
-                  <div class="pressure-value">-- inHg</div>
-                  <div class="trend-indicator">--</div>
-                </div>
-                <div class="solar-container">
-                  <div class="solar-value">-- W/m²</div>
-                  <div class="uv-value">UV: --</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Wind Section -->
-      <div class="section-card">
-        <h2>Wind</h2>
-        <div class="wind-card" id="wind-combined">
-          <div class="wind-animation-container"></div>
-          <div class="wind-info">
-            <div class="wind-main">
-              <div class="wind-speed-value">-- mph</div>
-              <div class="wind-direction-value">--</div>
-            </div>
-            <div class="wind-details">
-              <div class="gust">Gust: -- mph</div>
-              <div class="high">Today's High: -- mph</div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Indoor Section (moved inside wind section) -->
-        <div class="weather-card-grid" style="margin-top: 1rem;">
-          <div class="home-card" id="indoor-combined">
-            <div class="home-animation-container"></div>
-            <div class="home-info">
-              <h3>Home</h3>
-              <div class="value">--°F | --%</div>
-            </div>
-          </div>
-          <div class="weather-card" id="last-update">
-            <h3>Last Update</h3>
-            <div class="value" id="update-time">--:--:--</div>
-            <div class="progress-bar update-progress-bar">
-              <div class="progress" id="update-progress"></div>
-            </div>
-            <a href="history.html" class="history-link">View History →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        <a href="history.html" class="history-link">View History →</a>
+      </article>
+    </section>
+  </main>
   <script type="module" src="scripts/app.js"></script>
-  
-  <!-- Particles.js for background effects -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      particlesJS('particles-js', {
-        "particles": {
-          "number": {
-            "value": 40,
-            "density": {
-              "enable": true,
-              "value_area": 1200
-            }
-          },
-          "color": {
-            "value": ["#818cf8", "#f472b6", "#10b981"]
-          },
-          "shape": {
-            "type": "circle",
-            "stroke": {
-              "width": 0,
-              "color": "#000000"
-            },
-            "polygon": {
-              "nb_sides": 5
-            }
-          },
-          "opacity": {
-            "value": 0.3,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 0.5,
-              "opacity_min": 0.1,
-              "sync": false
-            }
-          },
-          "size": {
-            "value": 3,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 2,
-              "size_min": 0.1,
-              "sync": false
-            }
-          },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": "#a5b4fc",
-            "opacity": 0.1,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 0.8,
-            "direction": "none",
-            "random": true,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false,
-            "attract": {
-              "enable": false,
-              "rotateX": 600,
-              "rotateY": 1200
-            }
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "bubble"
-            },
-            "onclick": {
-              "enable": false,
-              "mode": "push"
-            },
-            "resize": true
-          },
-          "modes": {
-            "bubble": {
-              "distance": 150,
-              "size": 4,
-              "duration": 2,
-              "opacity": 0.8,
-              "speed": 3
-            }
-          }
-        },
-        "retina_detect": true
-      });
+    particlesJS('particles-js', {
+      particles: { number: { value: 40, density: { enable: true, value_area: 800 } }, color: { value: ['#7b2cbf', '#c77dff'] }, shape: { type: 'circle' }, opacity: { value: 0.3 }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: '#c77dff', opacity: 0.2, width: 1 }, move: { enable: true, speed: 0.6 } },
+      interactivity: { events: { onhover: { enable: true, mode: 'bubble' }, resize: true }, modes: { bubble: { distance: 150, size: 4, duration: 2, opacity: 0.8, speed: 3 } } },
+      retina_detect: true
     });
   </script>
-
-  <!-- Register the service worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
-          })
-          .catch(error => {
-            console.error('Service Worker registration failed:', error);
-          });
+        navigator.serviceWorker.register('/service-worker.js');
       });
     }
   </script>
-
 </body>
 </html>
