@@ -1,10 +1,6 @@
-// Add these constants at the top of your file, after the CONFIG
-const SAUNA_CONFIG = {
-    API_URL: 'https://api.huum.eu/action/home',
-    USERNAME: 'notforyou23@gmail.com',
-    PASSWORD: 'ofDYxD',
-    UPDATE_INTERVAL: 50000 // 50 seconds
-};
+import { SAUNA_CONFIG } from '../scripts/config.js';
+import { fetchRealtimeData } from '../models/weather.js';
+import { toggleSauna, fetchSaunaData } from '../models/sauna.js';
 
 class WeatherDashboard {
     constructor() {
@@ -28,31 +24,6 @@ class WeatherDashboard {
         setInterval(() => this.applyDynamicTheme(), 60 * 60 * 1000); // update theme hourly
     }
 
-    async fetchRealtimeData(retryCount = 0) {
-        const url = new URL('https://api.ecowitt.net/api/v3/device/real_time');
-        url.searchParams.append('application_key', CONFIG.APPLICATION_KEY);
-        url.searchParams.append('api_key', CONFIG.API_KEY);
-        url.searchParams.append('mac', CONFIG.MAC);
-        url.searchParams.append('call_back', 'all');
-
-        try {
-            const response = await fetch(url);
-            if (response.status === 429 && retryCount < this.maxRetries) {
-                console.log(`Rate limited, retrying in ${this.retryDelay/1000} seconds...`);
-                await new Promise(resolve => setTimeout(resolve, this.retryDelay));
-                return this.fetchRealtimeData(retryCount + 1);
-            }
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Error fetching realtime data:', error);
-            this.showError(`Failed to fetch weather data: ${error.message}`);
-            return null;
-        }
-    }
 
     showError(message) {
         const errorDiv = document.createElement('div');
@@ -908,7 +879,7 @@ class WeatherDashboard {
     }
 
     async updateDashboard() {
-        const data = await this.fetchRealtimeData();
+        const data = await fetchRealtimeData(this.retryDelay, this.maxRetries);
         if (data) {
             this.updateUI(data);
         }
@@ -970,65 +941,39 @@ class WeatherDashboard {
     initSaunaControl() {
         this.isHeatingOn = false;
         this.setupSaunaListeners();
-        this.fetchSaunaData();
-        setInterval(() => this.fetchSaunaData(), SAUNA_CONFIG.UPDATE_INTERVAL);
+        this.updateSauna();
+        setInterval(() => this.updateSauna(), SAUNA_CONFIG.UPDATE_INTERVAL);
     }
 
     setupSaunaListeners() {
         const toggleButton = document.getElementById('sauna-toggle');
         if (toggleButton) {
-            toggleButton.addEventListener('click', () => this.toggleSauna());
+            toggleButton.addEventListener('click', () => this.handleToggleSauna());
         }
     }
 
-    getBasicAuthHeader() {
-        return btoa(`${SAUNA_CONFIG.USERNAME}:${SAUNA_CONFIG.PASSWORD}`);
-    }
 
-    async toggleSauna() {
+    async handleToggleSauna() {
         this.isHeatingOn = !this.isHeatingOn;
-        const endpoint = this.isHeatingOn ? "start" : "stop";
-        const url = `${SAUNA_CONFIG.API_URL}/${endpoint}`;
-        const headers = new Headers({
-            "Authorization": `Basic ${this.getBasicAuthHeader()}`,
-            "Content-Type": "application/json"
-        });
-        // Updated target temperature to 188°F (86.67°C) and set duration to 3 hours (180 minutes)
-        const body = this.isHeatingOn ? JSON.stringify({ 
-            targetTemperature: 86.67,
-            duration: 180
-        }) : null;
         try {
-            const response = await fetch(url, { method: 'POST', headers: headers, body: body });
-            if (!response.ok) {
-                throw new Error(`Sauna ${this.isHeatingOn ? "start" : "stop"} request failed: ${response.statusText}`);
-            }
-            await this.fetchSaunaData();
+            await toggleSauna(this.isHeatingOn);
+            await this.updateSauna();
         } catch (error) {
-            console.error(`Sauna ${this.isHeatingOn ? "start" : "stop"} Error:`, error);
-            this.showError(`Failed to ${this.isHeatingOn ? "start" : "stop"} sauna: ${error.message}`);
+            console.error(`Sauna ${this.isHeatingOn ? 'start' : 'stop'} Error:`, error);
+            this.showError(`Failed to ${this.isHeatingOn ? 'start' : 'stop'} sauna: ${error.message}`);
             this.isHeatingOn = !this.isHeatingOn;
         }
     }
 
-    async fetchSaunaData() {
-        const url = `${SAUNA_CONFIG.API_URL}/status`;
-        const headers = new Headers({
-            "Authorization": `Basic ${this.getBasicAuthHeader()}`
-        });
+    async updateSauna() {
         try {
-            const response = await fetch(url, { method: 'GET', headers: headers });
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-            const data = await response.json();
+            const data = await fetchSaunaData();
             this.updateSaunaUI(data);
         } catch (error) {
-            console.error("Fetch Sauna Data Error:", error);
+            console.error('Fetch Sauna Data Error:', error);
             this.showError(`Failed to fetch sauna data: ${error.message}`);
         }
     }
-
     updateSaunaUI(data) {
         try {
             const saunaTempElement = document.getElementById("sauna-temperature");
@@ -1806,7 +1751,4 @@ class WeatherDashboard {
     }
 }
 
-// Initialize the dashboard when the page loads
-window.addEventListener('DOMContentLoaded', () => {
-    new WeatherDashboard();
-});
+export default WeatherDashboard;
