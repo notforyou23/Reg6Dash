@@ -292,7 +292,7 @@ class WeatherDashboard {
             container.appendChild(heatWave);
         }
         
-        // Keyframes defined in CSS
+// Keyframes defined in CSS
     }
     
     createMildTempAnimation(container, temperature) {
@@ -402,7 +402,9 @@ class WeatherDashboard {
             container.appendChild(snowflake);
         }
         
+
         // Keyframes defined in CSS
+
     }
     
     addHumidityAnimation(selector, humidity) {
@@ -611,8 +613,10 @@ class WeatherDashboard {
         }
         
         container.appendChild(sun);
+
         
         // UV extreme pulse keyframes defined in CSS
+
     }
     
     addAtmosphericParticles(container, trendClass) {
@@ -750,28 +754,15 @@ class WeatherDashboard {
             particle.style.left = `${xPos}%`;
             particle.style.background = color;
             
-            // Create dynamic animation properties
-            const keyframes = `
-            @keyframes particle-${i} {
-                0% {
-                    transform: translate(0, 0) rotate(0deg);
-                    opacity: ${opacity};
-                }
-                100% {
-                    transform: translate(${-120 - Math.random() * 30}%, ${(Math.random() * 40 - 20)}%) rotate(${Math.random() * 360}deg);
-                    opacity: 0;
-                }
-            }`;
-            
-            // Create and append style element
-            const style = document.createElement('style');
-            style.textContent = keyframes;
-            document.head.appendChild(style);
-            
-            // Apply animation
-            particle.style.animation = `particle-${i} ${10/speed}s ${-delay}s linear infinite`;
-            
-            particles.appendChild(particle);
+        // Set animation variables for varied movement
+        particle.style.setProperty('--endX', `${-120 - Math.random() * 30}%`);
+        particle.style.setProperty('--endY', `${(Math.random() * 40 - 20)}%`);
+        particle.style.setProperty('--rotate', `${Math.random() * 360}deg`);
+        particle.style.setProperty('--startOpacity', opacity);
+        particle.style.setProperty('--duration', `${10 / speed}s`);
+        particle.style.setProperty('--delay', `${-delay}s`);
+        
+        particles.appendChild(particle);
         }
         
         // Create wind lines for texture - vary by wind speed
@@ -970,7 +961,11 @@ class WeatherDashboard {
         // Add ambient effects around the house
         this.addHomeAmbientEffects(container, temperature);
         
+
         // Keyframes defined in CSS
+
+        // Animations are defined globally in CSS
+
     }
     
     addHomeAmbientEffects(container, temperature) {
@@ -1028,37 +1023,45 @@ class WeatherDashboard {
     initTimeDisplays() {
         const updateTimes = () => {
             const now = new Date();
-            
+
             // Leonardo, NJ (Eastern Time)
             const leonardoTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
             document.getElementById('leonardo-time').textContent =
                 leonardoTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
-            
+
+            // Florence, Italy (Central European Time)
+            const florenceTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Rome" }));
+            document.getElementById('florence-time').textContent =
+                florenceTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: false });
+
             // Update liquid fill effect with spring animation
             const seconds = now.getSeconds();
             const milliseconds = now.getMilliseconds();
-            
+
             // Make it smoother by including milliseconds (0-1 value for the current second)
             const fillPercentage = ((seconds + (milliseconds / 1000)) / 60) * 100;
-            
+
             // Apply the fill height to the fill elements with a slight delay between them
-            document.querySelectorAll('.time-fill').forEach((fill) => {
-                fill.style.height = `${fillPercentage}%`;
+            document.querySelectorAll('.time-fill').forEach((fill, index) => {
+                // Add a slight stagger effect between the fills
+                setTimeout(() => {
+                    fill.style.height = `${fillPercentage}%`;
+                }, index * 100);
             });
-            
+
             // Add subtle glow effect instead of pulse
-            document.querySelectorAll('.time').forEach((timeElement) => {
+            document.querySelectorAll('.time').forEach((timeElement, index) => {
                 // Create subtle color animation based on seconds and minutes
-                const hue1 = 230;
-                const hue2 = 250;
-                
+                const hue1 = index === 0 ? 230 : 330; // Base hue for each clock (blue/purple)
+                const hue2 = index === 0 ? 250 : 350; // Target hue (slightly different)
+
                 // Calculate progress through the minute for subtle animation
                 const progress = seconds / 60;
                 const opacity = 0.8 + (Math.sin(progress * Math.PI) * 0.2);
-                
+
                 // Apply gradient with subtle animation
-                timeElement.style.background = `linear-gradient(to right, 
-                    hsl(${hue1}, 80%, 75%, ${opacity}) 0%, 
+                timeElement.style.background = `linear-gradient(to right,
+                    hsl(${hue1}, 80%, 75%, ${opacity}) 0%,
                     hsl(${hue2}, 80%, 65%, ${opacity}) 100%)`;
                 timeElement.style.opacity = opacity;
             });
