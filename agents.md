@@ -1,77 +1,164 @@
 # AGENTS.md – Contributor Guide for Codex + Human Collaboration
 
-This file outlines project-wide expectations for agents and human contributors working in this codebase. It defines structure, code style, commit discipline, and validation procedures.
+This file defines how Codex agents and human contributors must interact with this repository. It includes directory structure, style guidelines, validation rules, commit expectations, and environment setup requirements.
 
 ---
 
 ## 📁 Project Structure
 
-Use and respect the following conventions:
+Use and respect the following directory conventions:
 
-- `/scripts/`: Standalone scripts or one-off tools.
-- `/components/`: UI elements or modular front-end logic.
-- `/models/`: Machine learning, algorithms, or domain logic.
-- `/data/`: Static files, config, inputs/outputs, or cached content.
-- `/tests/`: Automated validation logic.
+* `/scripts/` — Standalone utilities or CLI tools
+* `/components/` — Front-end modules or reusable interface logic
+* `/models/` — Algorithms, data logic, ML models, or domain-specific processing
+* `/data/` — Static or dynamic input/output files (e.g. CSV, JSON, config)
+* `/tests/` — All validation, test cases, or verification logic
 
-> ⚠️ Only touch what’s needed for the task. Ask or search context if unsure.
+> Only touch what's necessary for your assigned task. If unsure, explore file context before modifying anything.
 
 ---
 
 ## ✍️ Code Style Guidelines
 
 ### Python
-- PEP8 standard: 4 spaces, `snake_case` for functions.
-- Avoid inline imports and side effects in modules.
-- Keep functions under 50 lines unless justified.
+
+* Use PEP8 (4 spaces, `snake_case`, imports at top).
+* Prefer pure functions with clear inputs and outputs.
+* Avoid logic in `__main__` unless writing CLI tools.
 
 ### JavaScript / TypeScript
-- Use functional components.
-- Prefer hooks and destructuring.
-- Respect Prettier formatting and ESLint rules.
+
+* Use functional components, avoid class-based React.
+* Use Prettier defaults for formatting.
+* Enforce ESLint rules.
 
 ### Markdown / Docs
-- Use headers, bullets, and short paragraphs.
-- Max line width: 100 characters.
+
+* Use headers (`#`, `##`) to organize content.
+* Prefer bullet lists to long paragraphs.
+* Wrap lines at 100 characters.
 
 ---
 
 ## ✅ Validation Instructions
 
-Changes must pass relevant checks before commit:
+All changes must pass validation before commit:
 
 ### Python
-- `pytest tests/`
-- `flake8 .` or `ruff .` if configured
-- `pre-commit run --all-files` if available
 
-### JS/TS
-- `npm test`, `pnpm test`, or `vitest`
-- `eslint .` and `prettier --check .`
+* Run tests with:
 
-> If no tests exist, validate that the app/tool runs without regression.
+  ```bash
+  pytest tests/
+  ```
+* Linting (if configured):
+
+  ```bash
+  flake8 .
+  # or
+  ruff .
+  ```
+* Pre-commit (if configured):
+
+  ```bash
+  pre-commit run --all-files
+  ```
+
+### JavaScript / TypeScript
+
+* Run tests with:
+
+  ```bash
+  npm test
+  # or
+  pnpm test
+  # or
+  vitest
+  ```
+* Lint:
+
+  ```bash
+  eslint .
+  ```
+* Format check:
+
+  ```bash
+  prettier --check .
+  ```
+
+> If no tests exist, verify that the code or tool runs correctly without error.
+
+---
+
+## 🔧 Environment Setup
+
+Before any work is done, run:
+
+```bash
+./setup.sh
+```
+
+This is mandatory. Codex environments **lose network access** after setup. Skipping this step will break most validations.
+
+### What it installs:
+
+* **Python**
+
+  * `pip install -r requirements.txt` (if file exists)
+  * `pre-commit` and hook config (if `.pre-commit-config.yaml` exists)
+* **Node.js / TypeScript**
+
+  * Installs `package.json` dependencies using `pnpm` if available, else `npm`
+
+> Do not skip this. If you change `setup.sh`, validate it still works before committing.
 
 ---
 
 ## 🧱 Git Rules
 
-- **Do not create new branches.**
-- Always leave the Git worktree clean: `git status` must be empty post-commit.
-- Use `git commit`, not amend or squash.
-- Follow any configured pre-commit hooks and fix violations before retrying.
-- Do not modify or remove prior commits.
+* Do **not** create new branches.
+* Leave Git state clean: `git status` should show no changes after commit.
+* Use `git commit` only (no amend or squash).
+* Follow pre-commit rules and fix any violations before retrying.
+* Do not touch existing commits.
 
 ---
 
-## 🧾 Commit / Patch Summary Format
+## 📟 Commit / Patch Summary Format
 
-### PR Message Style
+Use this format for Codex-compatible PR summaries:
+
+### Example
+
 ```md
 ### Summary
-- What changed and why
-- Which files were touched
-- Any validation steps taken
+- Refactored input validation into standalone module
+- Updated two utility functions for consistency
+- Added tests to cover new edge cases
 
 ### Citations
-- Code: `【F:src/tool.py†L12-34】`
-- Terminal: `【cmd-abc123†L4-11】`
+- Code: 【F:scripts/validator.py†L8-45】
+- Terminal: 【cmd-setup123†L12-21】
+```
+
+All changed lines must be cited using Codex file/terminal citation rules. Do not skip this.
+
+---
+
+## 🤖 Agent Behavior Expectations
+
+* Always inspect full context of modified files before editing.
+* Do not patch line-by-line — rewrite full logical blocks when editing.
+* Run all required validation steps and cite results.
+* Use complete, final code blocks in commits — no ellipses or partials.
+* Nested `AGENTS.md` files override this one for scoped rules.
+* Prompt-level instructions override this file but must still follow the spirit of these rules.
+
+---
+
+## 🧼 Final Notes
+
+This file is required reading for any contributor or agent operating in this repo. If you modify it, do so responsibly and update validation or setup processes as needed.
+
+```
+```
