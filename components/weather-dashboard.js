@@ -133,8 +133,9 @@ class WeatherDashboard {
     const atmCard = document.querySelector("#atmospheric-combined");
     const uvCard = document.querySelector("#uv-card");
 
+    let trend = { symbol: "→", class: "steady" };
+
     if (atmCard) {
-      let trend = { symbol: "→", class: "steady" };
 
       if (pressure !== undefined && pressure !== null) {
         const pressureNum = parseFloat(pressure);
@@ -154,25 +155,6 @@ class WeatherDashboard {
       }
 
       atmCard.querySelector(".solar-value").textContent = `${solar} W/m²`;
-
-      const uvElement = atmCard.querySelector(".uv-value");
-      uvElement.textContent = `UV: ${uv}`;
-
-      uvElement.className = "uv-value";
-      if (uv !== "--") {
-        const uvValue = parseFloat(uv);
-        if (uvValue >= 11) {
-          uvElement.classList.add("uv-extreme");
-        } else if (uvValue >= 8) {
-          uvElement.classList.add("uv-very-high");
-        } else if (uvValue >= 6) {
-          uvElement.classList.add("uv-high");
-        } else if (uvValue >= 3) {
-          uvElement.classList.add("uv-moderate");
-        } else {
-          uvElement.classList.add("uv-low");
-        }
-      }
 
       this.createAtmosphericAnimation(
         atmCard,
@@ -203,9 +185,8 @@ class WeatherDashboard {
         }
       }
 
-      this.createAtmosphericAnimation(
-        atmCard,
-        trend.class,
+      this.createUVAnimation(
+        uvCard,
         parseFloat(uv),
         parseFloat(solar),
       );
