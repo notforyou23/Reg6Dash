@@ -1,3 +1,5 @@
+import { CONFIG } from './scripts/config.js';
+
 class HistoryDashboard {
     constructor() {
       this.charts = {};
