@@ -155,17 +155,19 @@ class WeatherDashboard {
 
         const indoorTemp = weatherData.indoor?.temperature?.value || '--';
         const indoorHum = weatherData.indoor?.humidity?.value || '--';
-        document.querySelector('#indoor-combined .value').textContent = 
-            `${parseFloat(indoorTemp).toFixed(1)}°F | ${indoorHum}%`;
-        this.addIndoorAnimation('#indoor-combined', parseFloat(indoorTemp), parseFloat(indoorHum));
+        const indoorCard = document.querySelector('#indoor-sensors');
+        if (indoorCard) {
+            indoorCard.querySelector('.home-value').textContent =
+                `Home: ${parseFloat(indoorTemp).toFixed(1)}°F | ${indoorHum}%`;
+            this.addIndoorAnimation('#indoor-sensors', parseFloat(indoorTemp), parseFloat(indoorHum));
+        }
 
         const ch3 = weatherData.temp_and_humidity_ch3;
-        if (ch3) {
+        if (ch3 && indoorCard) {
             const temp = ch3.temperature?.value || '--';
             const humidity = ch3.humidity?.value || '--';
-            document.querySelector('#sauna-sensor .value').textContent = 
-                `${temp}°F | ${humidity}%`;
-            this.addIndoorAnimation('#sauna-sensor', parseFloat(temp), parseFloat(humidity));
+            indoorCard.querySelector('.sauna-value').textContent =
+                `Sauna: ${temp}°F | ${humidity}%`;
         }
 
         const now = new Date();
