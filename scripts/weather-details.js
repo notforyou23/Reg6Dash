@@ -32,10 +32,6 @@ async function updateWeather() {
     const solar = data.solar_and_uvi?.solar?.value;
     const uv = data.solar_and_uvi?.uvi?.value;
 
-    const temp = data.outdoor?.temperature?.value;
-    const humidity = data.outdoor?.humidity?.value;
-    const pressure = data.pressure?.relative?.value;
-
 
     if (temp !== undefined) {
       document.getElementById('temp').textContent = `${parseFloat(temp).toFixed(1)}°F`;
@@ -69,9 +65,6 @@ async function updateWeather() {
     }
     if (uv !== undefined) {
       document.getElementById('uv').textContent = `UV: ${parseFloat(uv).toFixed(1)}`;
-
-      document.getElementById('pressure').textContent = `${parseFloat(pressure).toFixed(2)} inHg`;
-
     }
 
     const now = new Date();
