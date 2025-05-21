@@ -23,8 +23,14 @@
     </header>
     <section class="card-grid">
       <article class="card" id="temp-card">
+
+        <h3>Temperature</h3>
+        <div id="temp" class="big-value">--°F</div>
+        <div id="feels-like" class="sub-value">Feels like --°F</div>
+
         <h3>Outside Temp</h3>
         <div id="temp" class="big-value">--°F</div>
+
       </article>
       <article class="card" id="humidity-card">
         <h3>Humidity</h3>
@@ -33,10 +39,29 @@
       <article class="card" id="pressure-card">
         <h3>Pressure</h3>
         <div id="pressure" class="big-value">-- inHg</div>
+
+        <div id="pressure-trend" class="sub-value">--</div>
+      </article>
+      <article class="card" id="wind-card">
+        <h3>Wind</h3>
+        <div id="wind-speed" class="big-value">-- mph</div>
+        <div id="wind-dir" class="sub-value">--</div>
+        <div id="wind-gust" class="sub-value">Gust: -- mph</div>
+      </article>
+      <article class="card" id="solar-card">
+        <h3>Solar &amp; UV</h3>
+        <div id="solar" class="big-value">-- W/m²</div>
+        <div id="uv" class="sub-value">UV: --</div>
+      </article>
+      <article class="card" id="update-card">
+        <h3>Last Update</h3>
+        <div id="update-time" class="big-value">--:--</div>
+
       </article>
       <article class="card" id="update-card">
         <h3>Last Update</h3>
         <div id="update-time" class="value">--:--</div>
+
       </article>
     </section>
   </main>
