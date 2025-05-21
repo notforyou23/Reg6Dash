@@ -170,12 +170,12 @@ class WeatherDashboard {
         const uvElement = uvCard.querySelector(".uv-value");
 
         if (uv !== "--" && !isNaN(parseFloat(uv))) {
-          uvElement.textContent = `UV: ${parseFloat(uv).toFixed(1)}`;
+          uvElement.textContent = parseFloat(uv).toFixed(1);
         } else {
-          uvElement.textContent = "UV: --";
+          uvElement.textContent = "--";
         }
 
-        uvElement.className = "uv-value";
+        uvElement.className = "big-value uv-value";
         if (uv !== "--") {
           const uvValue = parseFloat(uv);
           if (uvValue >= 11) {

@@ -115,6 +115,11 @@ body {
   color: var(--text-muted);
 }
 
+.solar-value {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
 .status-text {
   margin-top: 0.25rem;
   color: var(--text-muted);
