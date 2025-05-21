@@ -109,13 +109,12 @@ class WeatherDashboard {
         const pressure = weatherData.pressure?.relative?.value;
         const solar = weatherData.solar_and_uvi?.solar?.value || '--';
         const uv = weatherData.solar_and_uvi?.uvi?.value || '--';
+        
+        const atmCard = document.querySelector('#atmospheric-combined');
 
-        const pressureCard = document.querySelector('#pressure-card');
-        const uvCard = document.querySelector('#uv-card');
+        if (atmCard) {
+            let trend = { symbol: "→", class: "steady" };
 
-        let trend = { symbol: "→", class: "steady" };
-
-        if (pressureCard) {
             if (pressure !== undefined && pressure !== null) {
                 const pressureNum = parseFloat(pressure);
                 this.pressureHistory.push(pressureNum);
@@ -124,22 +123,18 @@ class WeatherDashboard {
                 }
 
                 trend = this.getPressureTrend();
-                pressureCard.querySelector('.pressure-value').textContent = `${pressureNum.toFixed(2)} inHg`;
-                const trendIndicator = pressureCard.querySelector('.trend-indicator');
+                atmCard.querySelector('.pressure-value').textContent = `${pressureNum.toFixed(2)} inHg`;
+                const trendIndicator = atmCard.querySelector('.trend-indicator');
                 trendIndicator.textContent = trend.symbol;
                 trendIndicator.className = `trend-indicator ${trend.class}`;
             }
 
-            this.createPressureCardAnimation(pressureCard, trend.class);
-        }
+            atmCard.querySelector('.solar-value').textContent = `${solar} W/m²`;
 
-        if (uvCard) {
-            uvCard.querySelector('.solar-value').textContent = `${solar} W/m²`;
-
-            const uvElement = uvCard.querySelector('.uv-value');
+            const uvElement = atmCard.querySelector('.uv-value');
             uvElement.textContent = `UV: ${uv}`;
 
-            uvElement.className = 'uv-value big-value';
+            uvElement.className = 'uv-value';
             if (uv !== '--') {
                 const uvValue = parseFloat(uv);
                 if (uvValue >= 11) {
@@ -155,7 +150,7 @@ class WeatherDashboard {
                 }
             }
 
-            this.createUVAnimation(uvCard, parseFloat(uv), parseFloat(solar));
+            this.createAtmosphericAnimation(atmCard, trend.class, parseFloat(uv), parseFloat(solar));
         }
 
         const indoorTemp = weatherData.indoor?.temperature?.value || '--';
@@ -338,35 +333,14 @@ class WeatherDashboard {
         const container = card.querySelector('.atmos-animation-container');
         if (!container) return;
         container.innerHTML = '';
-
+        
         this.createPressureAnimation(container, trendClass);
-
+        
         if (!isNaN(uvIndex) || !isNaN(solarValue)) {
             this.createSolarAnimation(container, uvIndex, solarValue);
         }
-
+        
         this.addAtmosphericParticles(container, trendClass);
-    }
-
-    createPressureCardAnimation(card, trendClass) {
-        const container = card.querySelector('.atmos-animation-container');
-        if (!container) return;
-        container.innerHTML = '';
-
-        this.createPressureAnimation(container, trendClass);
-        this.addAtmosphericParticles(container, trendClass);
-    }
-
-    createUVAnimation(card, uvIndex, solarValue) {
-        const container = card.querySelector('.atmos-animation-container');
-        if (!container) return;
-        container.innerHTML = '';
-
-        if (!isNaN(uvIndex) || !isNaN(solarValue)) {
-            this.createSolarAnimation(container, uvIndex, solarValue);
-        }
-
-        this.addAtmosphericParticles(container, 'steady');
     }
     
     createPressureAnimation(container, trendClass) {
