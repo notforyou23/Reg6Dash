@@ -110,8 +110,14 @@ class WeatherDashboard {
         const solar = weatherData.solar_and_uvi?.solar?.value || '--';
         const uv = weatherData.solar_and_uvi?.uvi?.value || '--';
 
+
         const atmosphericCard = document.querySelector('#atmospheric-combined');
         const uvCard = document.querySelector('#uv-card');
+
+
+        
+        const atmosphericCard = document.querySelector('#atmospheric-combined');
+        
 
         if (atmosphericCard) {
             let trend = { symbol: "→", class: "steady" };
@@ -133,6 +139,7 @@ class WeatherDashboard {
             atmosphericCard.querySelector('.solar-value').textContent = `${solar} W/m²`;
             
             const uvElement = atmosphericCard.querySelector('.uv-value');
+
             uvElement.textContent = `UV: ${uv}`;
             
             uvElement.className = 'uv-value';
@@ -158,9 +165,10 @@ class WeatherDashboard {
             uvCard.querySelector('.solar-value').textContent = `${solar} W/m²`;
 
             const uvElement = uvCard.querySelector('.uv-value');
-            uvElement.textContent = `UV: ${uv}`;
 
-            uvElement.className = 'uv-value big-value';
+            uvElement.textContent = `UV: ${uv}`;
+            
+            uvElement.className = 'uv-value';
             if (uv !== '--') {
                 const uvValue = parseFloat(uv);
                 if (uvValue >= 11) {
@@ -175,8 +183,8 @@ class WeatherDashboard {
                     uvElement.classList.add('uv-low');
                 }
             }
-
-            this.createUVAnimation(uvCard, parseFloat(uv), parseFloat(solar));
+            
+            this.createAtmosphericAnimation(atmosphericCard, trend.class, parseFloat(uv), parseFloat(solar));
         }
 
         const now = new Date();
@@ -342,12 +350,13 @@ class WeatherDashboard {
         const container = card.querySelector('.atmos-animation-container');
         if (!container) return;
         container.innerHTML = '';
-
+        
         this.createPressureAnimation(container, trendClass);
-
+        
         if (!isNaN(uvIndex) || !isNaN(solarValue)) {
             this.createSolarAnimation(container, uvIndex, solarValue);
         }
+
 
         this.addAtmosphericParticles(container, trendClass);
     }
@@ -363,6 +372,12 @@ class WeatherDashboard {
 
         this.addAtmosphericParticles(container, 'steady');
     }
+
+
+        
+        this.addAtmosphericParticles(container, trendClass);
+    }
+    
 
     createPressureAnimation(container, trendClass) {
         const pressureSystem = document.createElement('div');
