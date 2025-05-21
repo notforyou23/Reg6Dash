@@ -164,16 +164,22 @@ class WeatherDashboard {
       );
     }
 
-    if (uvCard) {
-      uvCard.querySelector(".solar-value").textContent = `${solar} W/m²`;
+      if (uvCard) {
+        uvCard.querySelector(".solar-value").textContent = `${solar} W/m²`;
 
-      const uvElement = uvCard.querySelector(".uv-value");
+        const uvElement = uvCard.querySelector(".uv-value");
 
-      uvElement.className = "uv-value";
-      if (uv !== "--") {
-        const uvValue = parseFloat(uv);
-        if (uvValue >= 11) {
-          uvElement.classList.add("uv-extreme");
+        if (uv !== "--" && !isNaN(parseFloat(uv))) {
+          uvElement.textContent = `UV: ${parseFloat(uv).toFixed(1)}`;
+        } else {
+          uvElement.textContent = "UV: --";
+        }
+
+        uvElement.className = "uv-value";
+        if (uv !== "--") {
+          const uvValue = parseFloat(uv);
+          if (uvValue >= 11) {
+            uvElement.classList.add("uv-extreme");
         } else if (uvValue >= 8) {
           uvElement.classList.add("uv-very-high");
         } else if (uvValue >= 6) {
