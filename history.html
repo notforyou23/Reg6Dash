@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather History</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#111827">
+  <meta name="theme-color" content="#111827" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Update Chart.js to use minified version -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="history-page">
+  <div id="particles-js"></div>
+  <div class="dashboard">
+    <header>
+      <h1>✨ Weather History ✨</h1>
+      <nav>
+        <a href="index.html" class="history-link">← Back to Dashboard</a>
+      </nav>
+    </header>
+
+    <div class="time-controls section-card">
+      <h2>Time Range</h2>
+      <div class="time-range-buttons">
+        <button class="time-button active" data-range="1h" data-cycle="5min">Last Hour</button>
+        <button class="time-button" data-range="24h" data-cycle="5min">Last 24 Hours</button>
+        <button class="time-button" data-range="7d" data-cycle="30min">Last 7 Days</button>
+        <button class="time-button" data-range="30d" data-cycle="240min">Last 30 Days</button>
+        <button class="time-button" data-range="90d" data-cycle="240min">Last 90 Days</button>
+        <button class="time-button" data-range="365d" data-cycle="24h">Last Year</button>
+      </div>
+    </div>
+
+    <div class="loading-indicator" style="display: none;">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading data...</div>
+    </div>
+
+    <div class="weather-grid">
+      <div class="section-card">
+        <h2>Wind Metrics</h2>
+        <div class="chart-container">
+          <canvas id="windChart"></canvas>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>Temperature & Humidity</h2>
+        <div class="chart-container">
+          <canvas id="tempHumChart"></canvas>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>Barometric Pressure</h2>
+        <div class="chart-container">
+          <canvas id="pressureChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="config.js"></script>
+  <script src="history.js"></script>
+  
+  <!-- Particles.js for background effects -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 40,
+            "density": {
+              "enable": true,
+              "value_area": 1200
+            }
+          },
+          "color": {
+            "value": ["#818cf8", "#f472b6", "#10b981"]
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            }
+          },
+          "opacity": {
+            "value": 0.3,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 0.5,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 2,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#a5b4fc",
+            "opacity": 0.1,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 0.8,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "bubble"
+            },
+            "onclick": {
+              "enable": false,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "bubble": {
+              "distance": 150,
+              "size": 4,
+              "duration": 2,
+              "opacity": 0.8,
+              "speed": 3
+            }
+          }
+        },
+        "retina_detect": true
+      });
+    });
+  </script>
+
+  <!-- Register the service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
