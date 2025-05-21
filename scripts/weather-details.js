@@ -15,10 +15,12 @@ function pressureTrend(current) {
   return '→';
 }
 
+
 async function updateWeather() {
   try {
     const result = await fetchRealtimeData();
     const data = result.data;
+
 
     const temp = data.outdoor?.temperature?.value;
     const feelsLike = data.outdoor?.feels_like?.value;
@@ -30,16 +32,24 @@ async function updateWeather() {
     const solar = data.solar_and_uvi?.solar?.value;
     const uv = data.solar_and_uvi?.uvi?.value;
 
+    const temp = data.outdoor?.temperature?.value;
+    const humidity = data.outdoor?.humidity?.value;
+    const pressure = data.pressure?.relative?.value;
+
+
     if (temp !== undefined) {
       document.getElementById('temp').textContent = `${parseFloat(temp).toFixed(1)}°F`;
     }
+
     if (feelsLike !== undefined) {
       document.getElementById('feels-like').textContent = `Feels like ${parseFloat(feelsLike).toFixed(1)}°F`;
     }
+
     if (humidity !== undefined) {
       document.getElementById('humidity').textContent = `${parseFloat(humidity).toFixed(0)}%`;
     }
     if (pressure !== undefined) {
+
       const pressureNum = parseFloat(pressure);
       document.getElementById('pressure').textContent = `${pressureNum.toFixed(2)} inHg`;
       document.getElementById('pressure-trend').textContent = pressureTrend(pressureNum);
@@ -59,6 +69,9 @@ async function updateWeather() {
     }
     if (uv !== undefined) {
       document.getElementById('uv').textContent = `UV: ${parseFloat(uv).toFixed(1)}`;
+
+      document.getElementById('pressure').textContent = `${parseFloat(pressure).toFixed(2)} inHg`;
+
     }
 
     const now = new Date();
