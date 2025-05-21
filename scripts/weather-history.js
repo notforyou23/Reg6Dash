@@ -1,4 +1,4 @@
-import { CONFIG } from './scripts/config.js';
+import { CONFIG } from './config.js';
 
 class HistoryDashboard {
     constructor() {

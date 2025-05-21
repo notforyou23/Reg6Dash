@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regina Dashboard</title>
+  <title>Weather Dashboard</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
@@ -15,7 +15,7 @@
   <div id="particles-js"></div>
   <main class="dashboard" aria-labelledby="title">
     <header class="dashboard-header">
-      <h1 id="title">Regina's Dashboard</h1>
+      <h1 id="title">Weather Dashboard</h1>
       <section class="time-cards" aria-label="World Clocks">
         <div class="time-card">
           <h2>Leonardo</h2>
@@ -74,12 +74,11 @@
         <div class="progress-bar">
           <div id="update-progress" class="progress"></div>
         </div>
-        <a href="history.html" class="history-link">View History →</a>
-        <a href="weather.html" class="history-link">Weather Details →</a>
+        <a href="weather-history.html" class="history-link">View History →</a>
       </article>
     </section>
   </main>
-  <script type="module" src="scripts/app.js"></script>
+  <script type="module" src="scripts/weather.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS('particles-js', {
