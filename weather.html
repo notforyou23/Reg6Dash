@@ -3,82 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Dashboard</title>
+  <title>Weather Details</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="particles-js"></div>
   <main class="dashboard" aria-labelledby="title">
     <header class="dashboard-header">
-      <h1 id="title">Weather Dashboard</h1>
-      <section class="time-cards" aria-label="World Clocks">
-        <div class="time-card">
-          <h2>Leonardo</h2>
-          <div id="leonardo-time" class="time-value">00:00:00</div>
-        </div>
-        <div class="time-card">
-          <h2>Florence</h2>
-          <div id="florence-time" class="time-value">00:00:00</div>
-        </div>
-      </section>
+      <h1 id="title">Weather Details</h1>
+      <nav>
+        <a href="index.html" class="history-link">&larr; Back to Dashboard</a>
+        <a href="history.html" class="history-link">View History &rarr;</a>
+      </nav>
     </header>
     <section class="card-grid">
-      <article class="card sauna-card" id="sauna-info">
-        <div class="sauna-animation-container"></div>
-        <h3>Sauna</h3>
-        <div id="sauna-temperature" class="big-value">--°F</div>
-        <div id="sauna-status" class="status-text">Unknown</div>
-        <button id="sauna-toggle" class="sauna-toggle">Turn Sauna On</button>
+      <article class="card" id="temp-card">
+        <h3>Temperature</h3>
+        <div id="temp" class="big-value">--°F</div>
+        <div id="feels-like" class="sub-value">Feels like --°F</div>
       </article>
-      <article class="card" id="outdoor-combined">
-        <div class="temp-animation-container"></div>
-        <h3>Outside</h3>
-        <div class="big-value temp-value">--°F</div>
-        <div class="sub-value humidity-value">--%</div>
-        <div class="feels-like">Feels like --°F</div>
+      <article class="card" id="humidity-card">
+        <h3>Humidity</h3>
+        <div id="humidity" class="big-value">--%</div>
       </article>
-      <article class="card" id="atmospheric-combined">
-        <div class="atmos-animation-container"></div>
-        <h3>Atmosphere</h3>
-        <div class="pressure-value">-- inHg</div>
-        <div class="trend-indicator">--</div>
-        <div class="solar-value">-- W/m²</div>
-        <div class="uv-value">UV: --</div>
+      <article class="card" id="pressure-card">
+        <h3>Pressure</h3>
+        <div id="pressure" class="big-value">-- inHg</div>
+        <div id="pressure-trend" class="sub-value">--</div>
       </article>
-      <article class="card" id="wind-combined">
-        <div class="wind-animation-container"></div>
+      <article class="card" id="wind-card">
         <h3>Wind</h3>
-        <div class="big-value wind-speed-value">-- mph</div>
-        <div class="sub-value wind-direction-value">--</div>
-        <div class="gust">Gust: -- mph</div>
-        <div class="high">Today's High: -- mph</div>
+        <div id="wind-speed" class="big-value">-- mph</div>
+        <div id="wind-dir" class="sub-value">--</div>
+        <div id="wind-gust" class="sub-value">Gust: -- mph</div>
       </article>
-      <article class="card" id="indoor-combined">
-        <div class="home-animation-container"></div>
-        <h3>Home</h3>
-        <div class="value">--°F | --%</div>
+      <article class="card" id="solar-card">
+        <h3>Solar &amp; UV</h3>
+        <div id="solar" class="big-value">-- W/m²</div>
+        <div id="uv" class="sub-value">UV: --</div>
       </article>
-      <article class="card" id="sauna-sensor">
-        <div class="home-animation-container"></div>
-        <h3>Sauna Sensor</h3>
-        <div class="value">--°F | --%</div>
-      </article>
-      <article class="card" id="last-update">
+      <article class="card" id="update-card">
         <h3>Last Update</h3>
-        <div id="update-time" class="value">--:--:--</div>
-        <div class="progress-bar">
-          <div id="update-progress" class="progress"></div>
-        </div>
-        <a href="weather-history.html" class="history-link">View History →</a>
+        <div id="update-time" class="big-value">--:--</div>
       </article>
     </section>
   </main>
-  <script type="module" src="scripts/weather.js"></script>
+  <script type="module" src="scripts/weather-details.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS('particles-js', {
@@ -86,13 +61,6 @@
       interactivity: { events: { onhover: { enable: true, mode: 'bubble' }, resize: true }, modes: { bubble: { distance: 150, size: 4, duration: 2, opacity: 0.8, speed: 3 } } },
       retina_detect: true
     });
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
   </script>
 </body>
 </html>
