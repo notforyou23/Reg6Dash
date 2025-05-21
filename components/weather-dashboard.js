@@ -109,9 +109,16 @@ class WeatherDashboard {
         const pressure = weatherData.pressure?.relative?.value;
         const solar = weatherData.solar_and_uvi?.solar?.value || '--';
         const uv = weatherData.solar_and_uvi?.uvi?.value || '--';
+
+
+        const atmosphericCard = document.querySelector('#atmospheric-combined');
+        const uvCard = document.querySelector('#uv-card');
+
+
         
         const atmosphericCard = document.querySelector('#atmospheric-combined');
         
+
         if (atmosphericCard) {
             let trend = { symbol: "→", class: "steady" };
             
@@ -132,6 +139,7 @@ class WeatherDashboard {
             atmosphericCard.querySelector('.solar-value').textContent = `${solar} W/m²`;
             
             const uvElement = atmosphericCard.querySelector('.uv-value');
+
             uvElement.textContent = `UV: ${uv}`;
             
             uvElement.className = 'uv-value';
@@ -153,21 +161,30 @@ class WeatherDashboard {
             this.createAtmosphericAnimation(atmosphericCard, trend.class, parseFloat(uv), parseFloat(solar));
         }
 
-        const indoorTemp = weatherData.indoor?.temperature?.value || '--';
-        const indoorHum = weatherData.indoor?.humidity?.value || '--';
-        const indoorCard = document.querySelector('#indoor-sensors');
-        if (indoorCard) {
-            indoorCard.querySelector('.home-value').textContent =
-                `Home: ${parseFloat(indoorTemp).toFixed(1)}°F | ${indoorHum}%`;
-            this.addIndoorAnimation('#indoor-sensors', parseFloat(indoorTemp), parseFloat(indoorHum));
-        }
+        if (uvCard) {
+            uvCard.querySelector('.solar-value').textContent = `${solar} W/m²`;
 
-        const ch3 = weatherData.temp_and_humidity_ch3;
-        if (ch3 && indoorCard) {
-            const temp = ch3.temperature?.value || '--';
-            const humidity = ch3.humidity?.value || '--';
-            indoorCard.querySelector('.sauna-value').textContent =
-                `Sauna: ${temp}°F | ${humidity}%`;
+            const uvElement = uvCard.querySelector('.uv-value');
+
+            uvElement.textContent = `UV: ${uv}`;
+            
+            uvElement.className = 'uv-value';
+            if (uv !== '--') {
+                const uvValue = parseFloat(uv);
+                if (uvValue >= 11) {
+                    uvElement.classList.add('uv-extreme');
+                } else if (uvValue >= 8) {
+                    uvElement.classList.add('uv-very-high');
+                } else if (uvValue >= 6) {
+                    uvElement.classList.add('uv-high');
+                } else if (uvValue >= 3) {
+                    uvElement.classList.add('uv-moderate');
+                } else {
+                    uvElement.classList.add('uv-low');
+                }
+            }
+            
+            this.createAtmosphericAnimation(atmosphericCard, trend.class, parseFloat(uv), parseFloat(solar));
         }
 
         const now = new Date();
@@ -339,10 +356,29 @@ class WeatherDashboard {
         if (!isNaN(uvIndex) || !isNaN(solarValue)) {
             this.createSolarAnimation(container, uvIndex, solarValue);
         }
+
+
+        this.addAtmosphericParticles(container, trendClass);
+    }
+
+    createUVAnimation(card, uvIndex, solarValue) {
+        const container = card.querySelector('.atmos-animation-container');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (!isNaN(uvIndex) || !isNaN(solarValue)) {
+            this.createSolarAnimation(container, uvIndex, solarValue);
+        }
+
+        this.addAtmosphericParticles(container, 'steady');
+    }
+
+
         
         this.addAtmosphericParticles(container, trendClass);
     }
     
+
     createPressureAnimation(container, trendClass) {
         const pressureSystem = document.createElement('div');
         pressureSystem.className = 'pressure-system';
