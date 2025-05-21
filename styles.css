@@ -78,7 +78,7 @@ body {
 }
 
 .time-value {
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 600;
   margin-top: 0.5rem;
   color: var(--accent);
