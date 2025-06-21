@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="particles-js"></div>
@@ -41,6 +41,11 @@
         <div class="big-value temp-value">--°F</div>
         <div class="sub-value humidity-value">--%</div>
         <div class="feels-like">Feels like --°F</div>
+        <div class="uv-section">
+          <div class="uv-label">UV Index</div>
+          <div class="uv-value">--</div>
+          <div class="solar-value">-- W/m²</div>
+        </div>
       </article>
       <article class="card" id="wind-combined">
         <div class="wind-animation-container"></div>
@@ -49,19 +54,11 @@
         <div class="sub-value wind-direction-value">--</div>
         <div class="gust">Gust: -- mph</div>
         <div class="high">Today's High: -- mph</div>
-      </article>
-      <article class="card" id="atmospheric-combined">
-        <div class="atmos-animation-container"></div>
-        <h3>Atmosphere</h3>
-        <div class="big-value pressure-value">-- inHg</div>
-        <div class="trend-indicator big-value">--</div>
-        <div class="solar-value">-- W/m²</div>
-      </article>
-      <article class="card" id="uv-card">
-        <div class="atmos-animation-container"></div>
-        <h3>UV</h3>
-        <div class="big-value uv-value">--</div>
-        <div class="solar-value">-- W/m²</div>
+        <div class="pressure-section">
+          <div class="pressure-label">Pressure</div>
+          <div class="pressure-value">-- inHg</div>
+          <div class="trend-indicator">--</div>
+        </div>
       </article>
       <article class="card" id="last-update">
         <h3>Last Update</h3>
@@ -79,17 +76,52 @@
   <script>
     particlesJS('particles-js', {
       particles: {
-        number: { value: 60, density: { enable: true, value_area: 800 } },
-        color: { value: ['#38bdf8', '#f472b6'] },
+        number: { value: 40, density: { enable: true, value_area: 1000 } },
+        color: { value: ['#ffffff', '#007AFF', '#00C7BE', '#30D158'] },
         shape: { type: 'circle' },
-        opacity: { value: 0.6 },
-        size: { value: 4, random: true },
-        line_linked: { enable: true, distance: 150, color: '#38bdf8', opacity: 0.3, width: 1 },
-        move: { enable: true, speed: 0.6 }
+        opacity: { 
+          value: 0.3,
+          random: true,
+          anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+        },
+        size: { 
+          value: 3, 
+          random: true,
+          anim: { enable: true, speed: 2, size_min: 1, sync: false }
+        },
+        line_linked: { 
+          enable: true, 
+          distance: 200, 
+          color: '#ffffff', 
+          opacity: 0.15, 
+          width: 1 
+        },
+        move: { 
+          enable: true, 
+          speed: 0.8,
+          direction: 'none',
+          random: true,
+          straight: false,
+          out_mode: 'out',
+          bounce: false
+        }
       },
       interactivity: {
-        events: { onhover: { enable: true, mode: 'bubble' }, resize: true },
-        modes: { bubble: { distance: 150, size: 4, duration: 2, opacity: 0.8, speed: 3 } }
+        detect_on: 'canvas',
+        events: { 
+          onhover: { enable: true, mode: 'bubble' }, 
+          onclick: { enable: false },
+          resize: true 
+        },
+        modes: { 
+          bubble: { 
+            distance: 200, 
+            size: 6, 
+            duration: 2, 
+            opacity: 0.6, 
+            speed: 3 
+          }
+        }
       },
       retina_detect: true
     });

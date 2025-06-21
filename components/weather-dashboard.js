@@ -130,72 +130,64 @@ class WeatherDashboard {
     const solar = weatherData.solar_and_uvi?.solar?.value || "--";
     const uv = weatherData.solar_and_uvi?.uvi?.value || "--";
 
-    const atmCard = document.querySelector("#atmospheric-combined");
-    const uvCard = document.querySelector("#uv-card");
+    // Update UV section in outdoor card
+    const outdoorCard = document.querySelector("#outdoor-combined");
+    if (outdoorCard) {
+      const uvElement = outdoorCard.querySelector(".uv-value");
+      const solarElement = outdoorCard.querySelector(".solar-value");
+      
+      if (solarElement) solarElement.textContent = `${solar} W/m²`;
 
-    let trend = { symbol: "→", class: "steady" };
-
-    if (atmCard) {
-
-      if (pressure !== undefined && pressure !== null) {
-        const pressureNum = parseFloat(pressure);
-        this.pressureHistory.push(pressureNum);
-        if (this.pressureHistory.length > this.pressureHistoryMaxLength) {
-          this.pressureHistory.shift();
-        }
-
-        trend = this.getPressureTrend();
-
-        atmCard.querySelector(".pressure-value").textContent =
-          `${pressureNum.toFixed(2)} inHg`;
-        const trendIndicator = atmCard.querySelector(".trend-indicator");
-
-        trendIndicator.textContent = trend.symbol;
-        trendIndicator.className = `trend-indicator ${trend.class}`;
-      }
-
-      atmCard.querySelector(".solar-value").textContent = `${solar} W/m²`;
-
-      this.createAtmosphericAnimation(
-        atmCard,
-        trend.class,
-        parseFloat(uv),
-        parseFloat(solar),
-      );
-    }
-
-      if (uvCard) {
-        uvCard.querySelector(".solar-value").textContent = `${solar} W/m²`;
-
-        const uvElement = uvCard.querySelector(".uv-value");
-
+      if (uvElement) {
         if (uv !== "--" && !isNaN(parseFloat(uv))) {
           uvElement.textContent = parseFloat(uv).toFixed(1);
         } else {
           uvElement.textContent = "--";
         }
 
-        uvElement.className = "big-value uv-value";
+        // Remove existing UV classes
+        uvElement.classList.remove("uv-low", "uv-moderate", "uv-high", "uv-very-high", "uv-extreme");
+        
         if (uv !== "--") {
           const uvValue = parseFloat(uv);
           if (uvValue >= 11) {
             uvElement.classList.add("uv-extreme");
-        } else if (uvValue >= 8) {
-          uvElement.classList.add("uv-very-high");
-        } else if (uvValue >= 6) {
-          uvElement.classList.add("uv-high");
-        } else if (uvValue >= 3) {
-          uvElement.classList.add("uv-moderate");
-        } else {
-          uvElement.classList.add("uv-low");
+          } else if (uvValue >= 8) {
+            uvElement.classList.add("uv-very-high");
+          } else if (uvValue >= 6) {
+            uvElement.classList.add("uv-high");
+          } else if (uvValue >= 3) {
+            uvElement.classList.add("uv-moderate");
+          } else {
+            uvElement.classList.add("uv-low");
+          }
         }
       }
+    }
 
-      this.createUVAnimation(
-        uvCard,
-        parseFloat(uv),
-        parseFloat(solar),
-      );
+    // Update pressure section in wind card (reuse existing windCard variable)
+    let trend = { symbol: "→", class: "steady" };
+    
+    if (windCard && pressure !== undefined && pressure !== null) {
+      const pressureNum = parseFloat(pressure);
+      this.pressureHistory.push(pressureNum);
+      if (this.pressureHistory.length > this.pressureHistoryMaxLength) {
+        this.pressureHistory.shift();
+      }
+
+      trend = this.getPressureTrend();
+
+      const pressureElement = windCard.querySelector(".pressure-value");
+      const trendIndicator = windCard.querySelector(".trend-indicator");
+      
+      if (pressureElement) {
+        pressureElement.textContent = `${pressureNum.toFixed(2)} inHg`;
+      }
+      
+      if (trendIndicator) {
+        trendIndicator.textContent = trend.symbol;
+        trendIndicator.className = `trend-indicator ${trend.class}`;
+      }
     }
 
     const indoorTemp = weatherData.indoor?.temperature?.value || "--";
@@ -846,7 +838,20 @@ class WeatherDashboard {
       return 'heating';
     }
     
-    // All other states (off, locked, emergency) are considered idle for polling purposes
+    // Handle specific states for visual indicators
+    if (statusCode === 232) {
+      return 'idle'; // Off but ready
+    }
+    
+    if (statusCode === 233) {
+      return 'locked'; // In use by another user
+    }
+    
+    if (statusCode === 400) {
+      return 'emergency'; // Emergency stop
+    }
+    
+    // All other states are considered idle for polling purposes
     return 'idle';
   }
 
@@ -1078,9 +1083,53 @@ class WeatherDashboard {
       // Add polling status indicator
       this.updatePollingIndicator(additionalInfoElement);
       
+      // Apply visual state classes for cross-room visibility
+      this.applySaunaVisualState(saunaCard, data);
+      
     } catch (error) {
       console.error("An error occurred while executing updateSaunaUI:", error);
     }
+  }
+
+  applySaunaVisualState(saunaCard, data) {
+    // Remove all existing state classes
+    saunaCard.classList.remove(
+      'sauna-off', 'sauna-heating', 'sauna-critical', 
+      'sauna-offline', 'sauna-locked', 'sauna-emergency'
+    );
+
+    if (!data || !data.hasOwnProperty("statusCode")) {
+      saunaCard.classList.add('sauna-offline');
+      return;
+    }
+
+    const statusCode = data.statusCode;
+    const currentSaunaState = this.determineSaunaState(data);
+
+    // Apply the appropriate visual state class
+    switch (currentSaunaState) {
+      case 'heating':
+        saunaCard.classList.add('sauna-heating');
+        break;
+      case 'critical':
+        saunaCard.classList.add('sauna-critical');
+        break;
+      case 'offline':
+        saunaCard.classList.add('sauna-offline');
+        break;
+      case 'locked':
+        saunaCard.classList.add('sauna-locked');
+        break;
+      case 'emergency':
+        saunaCard.classList.add('sauna-emergency');
+        break;
+      case 'idle':
+      default:
+        saunaCard.classList.add('sauna-off');
+        break;
+    }
+
+    console.log(`Sauna visual state applied: ${currentSaunaState}`);
   }
 
   updatePollingIndicator(container) {
