@@ -43,8 +43,17 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+  /* Fallback for older Safari */
+  background: linear-gradient(135deg, 
+    hsl(200, 80%, 8%) 0%,
+    hsl(190, 70%, 12%) 25%,
+    hsl(180, 60%, 16%) 50%,
+    hsl(170, 70%, 14%) 75%,
+    hsl(160, 80%, 10%) 100%);
   background: var(--bg-gradient);
   background-attachment: fixed;
+  /* Fallback text color */
+  color: rgba(255, 255, 255, 0.95);
   color: var(--text-primary);
   min-height: 100vh;
   position: relative;
@@ -123,13 +132,20 @@ body::before {
 }
 
 .time-card {
+  /* Fallback background for older Safari */
+  background: rgba(255, 255, 255, 0.08);
   background: var(--glass-primary);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+  /* Fallback border */
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   padding: 1.5rem 2rem;
   text-align: center;
+  /* Fallback shadow */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: var(--shadow-glass);
   position: relative;
   overflow: hidden;
@@ -196,15 +212,22 @@ body::before {
 
 .card {
   position: relative;
+  /* Fallback background for older Safari */
+  background: rgba(255, 255, 255, 0.08);
   background: var(--glass-primary);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+  /* Fallback border */
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
   padding: 1.5rem;
   text-align: center;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Fallback shadow */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: var(--shadow-glass);
 }
 
@@ -823,6 +846,91 @@ body::before {
 }
 
 /* High Contrast Mode */
+/* Enhanced Safari iOS compatibility */
+body {
+  /* Multiple fallback layers for maximum compatibility */
+  background-color: #0a1a2a; /* Solid fallback */
+  background-image: linear-gradient(135deg, 
+    #0a1a2a 0%,
+    #0f2135 25%,
+    #142940 50%,
+    #0f2135 75%,
+    #0a1a2a 100%);
+  background-attachment: fixed;
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .card, .time-card, .sauna-toggle, .progress-bar, .history-link, .polling-status {
+    background: rgba(0, 0, 0, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  body {
+    background: linear-gradient(135deg, 
+      #0a1a2a 0%,
+      #0f2135 25%,
+      #142940 50%,
+      #0f2135 75%,
+      #0a1a2a 100%) !important;
+  }
+}
+
+/* Additional Safari-specific fallbacks */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+  /* This targets Safari specifically - only for non-sauna cards */
+  .card:not(.sauna-card), .time-card {
+    background: rgba(20, 30, 40, 0.8);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* iPad specific fixes */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  body {
+    background-color: #0a1a2a !important;
+    background-image: linear-gradient(135deg, 
+      #0a1a2a 0%,
+      #0f2135 25%,
+      #142940 50%,
+      #0f2135 75%,
+      #0a1a2a 100%) !important;
+    background-attachment: scroll !important; /* Better for iOS */
+  }
+  
+  /* Only apply background fixes to non-sauna cards */
+  .card:not(.sauna-card), .time-card {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  }
+  
+  /* Ensure sauna card states work on iPad */
+  .sauna-card {
+    backdrop-filter: blur(10px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  }
+  
+  /* Enhance sauna state visibility on iPad */
+  .sauna-card.sauna-heating {
+    border-width: 2px !important;
+    box-shadow: var(--shadow-heavy),
+                0 0 50px rgba(255, 149, 0, 0.6) !important,
+                0 0 100px rgba(255, 149, 0, 0.3) !important,
+                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  .sauna-card.sauna-critical {
+    border-width: 2px !important;
+    box-shadow: var(--shadow-heavy),
+                0 0 60px rgba(255, 69, 58, 0.7) !important,
+                0 0 120px rgba(255, 69, 58, 0.4) !important,
+                inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  }
+}
+
 @media (prefers-contrast: high) {
   :root {
     --glass-border: rgba(255, 255, 255, 0.3);
