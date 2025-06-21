@@ -737,14 +737,9 @@ class WeatherDashboard {
 
   initSaunaControl() {
     this.isHeatingOn = false;
-    this.saunaPollingTimer = null;
-    this.currentSaunaState = 'unknown'; // unknown, idle, heating, critical, offline, error
-    this.consecutiveErrors = 0;
-    this.lastSaunaData = null;
-    
     this.setupSaunaListeners();
     this.updateSauna();
-    this.startAdaptivePolling();
+    setInterval(() => this.updateSauna(), SAUNA_CONFIG.UPDATE_INTERVAL);
   }
 
   setupSaunaListeners() {
@@ -756,19 +751,9 @@ class WeatherDashboard {
 
   async handleToggleSauna() {
     this.isHeatingOn = !this.isHeatingOn;
-    
-    // Immediately switch to heating polling when starting sauna
-    if (this.isHeatingOn) {
-      this.currentSaunaState = 'heating';
-      console.log("User started sauna - switching to active polling");
-    }
-    
     try {
       await toggleSauna(this.isHeatingOn);
-      
-      // Get immediate status update after toggle
       await this.updateSauna();
-      
     } catch (error) {
       console.error(
         `Sauna ${this.isHeatingOn ? "start" : "stop"} Error:`,
@@ -777,114 +762,17 @@ class WeatherDashboard {
       this.showError(
         `Failed to ${this.isHeatingOn ? "start" : "stop"} sauna: ${error.message}`,
       );
-      
-      // Rollback optimistic state
       this.isHeatingOn = !this.isHeatingOn;
-      
-      // Reset to previous state on error
-      if (this.lastSaunaData) {
-        this.currentSaunaState = this.determineSaunaState(this.lastSaunaData);
-      } else {
-        this.currentSaunaState = 'error';
-      }
     }
-  }
-
-  startAdaptivePolling() {
-    // Clear any existing timer
-    if (this.saunaPollingTimer) {
-      clearTimeout(this.saunaPollingTimer);
-    }
-    
-    const interval = this.getSaunaPollingInterval();
-    console.log(`Sauna polling: ${this.currentSaunaState} state, next update in ${interval/1000}s`);
-    
-    this.saunaPollingTimer = setTimeout(() => {
-      this.updateSauna();
-    }, interval);
-  }
-
-  getSaunaPollingInterval() {
-    switch (this.currentSaunaState) {
-      case 'critical':
-        return SAUNA_CONFIG.CRITICAL_INTERVAL;
-      case 'heating':
-        return SAUNA_CONFIG.HEATING_INTERVAL;
-      case 'offline':
-        return SAUNA_CONFIG.OFFLINE_INTERVAL;
-      case 'error':
-        return SAUNA_CONFIG.ERROR_BACKOFF_INTERVAL * Math.pow(SAUNA_CONFIG.BACKOFF_MULTIPLIER, Math.min(this.consecutiveErrors - 1, 3));
-      case 'idle':
-      default:
-        return SAUNA_CONFIG.IDLE_INTERVAL;
-    }
-  }
-
-  determineSaunaState(data) {
-    if (!data || !data.hasOwnProperty("statusCode")) {
-      return 'error';
-    }
-
-    const statusCode = data.statusCode;
-    
-    // Handle offline state
-    if (statusCode === 230) {
-      return 'offline';
-    }
-    
-    // Handle heating states
-    if (statusCode === 231 && data.hasOwnProperty("temperature") && data.hasOwnProperty("targetTemperature")) {
-      const currentTemp = Math.round((parseFloat(data.temperature) * 9) / 5 + 32);
-      const targetTemp = Math.round((parseFloat(data.targetTemperature) * 9) / 5 + 32);
-      const tempDifference = targetTemp - currentTemp;
-      
-      // Critical polling when close to target temperature
-      if (tempDifference <= SAUNA_CONFIG.CRITICAL_TEMP_THRESHOLD && tempDifference > 0) {
-        return 'critical';
-      }
-      
-      return 'heating';
-    }
-    
-    // All other states (off, locked, emergency) are considered idle for polling purposes
-    return 'idle';
   }
 
   async updateSauna() {
     try {
       const data = await fetchSaunaData();
-      this.lastSaunaData = data;
-      this.consecutiveErrors = 0; // Reset error count on success
-      
-      // Determine new state and update UI
-      const newState = this.determineSaunaState(data);
-      const stateChanged = newState !== this.currentSaunaState;
-      
-      if (stateChanged) {
-        console.log(`Sauna state changed: ${this.currentSaunaState} → ${newState}`);
-        this.currentSaunaState = newState;
-      }
-      
       this.updateSaunaUI(data);
-      
-      // Schedule next update with new interval if state changed
-      this.startAdaptivePolling();
-      
     } catch (error) {
-      this.consecutiveErrors++;
-      this.currentSaunaState = 'error';
-      
-      console.error(`Fetch Sauna Data Error (${this.consecutiveErrors}/${SAUNA_CONFIG.MAX_CONSECUTIVE_ERRORS}):`, error);
-      
-      // Show error message, but less frequently for repeated errors
-      if (this.consecutiveErrors <= 2) {
-        this.showError(`Failed to fetch sauna data: ${error.message}`);
-      } else {
-        console.warn("Suppressing repeated sauna error messages");
-      }
-      
-      // Continue polling even on errors, but with backoff
-      this.startAdaptivePolling();
+      console.error("Fetch Sauna Data Error:", error);
+      this.showError(`Failed to fetch sauna data: ${error.message}`);
     }
   }
   updateSaunaUI(data) {
@@ -1074,56 +962,9 @@ class WeatherDashboard {
                     <div class="status-unknown">Unable to retrieve sauna status</div>
                 `;
       }
-
-      // Add polling status indicator
-      this.updatePollingIndicator(additionalInfoElement);
-      
     } catch (error) {
       console.error("An error occurred while executing updateSaunaUI:", error);
     }
-  }
-
-  updatePollingIndicator(container) {
-    // Remove existing indicator
-    const existingIndicator = container.querySelector('.polling-indicator');
-    if (existingIndicator) {
-      existingIndicator.remove();
-    }
-
-    // Create new indicator
-    const indicator = document.createElement('div');
-    indicator.className = 'polling-indicator';
-    
-    const nextUpdate = this.getSaunaPollingInterval() / 1000;
-    let statusText = '';
-    let statusClass = '';
-
-    switch (this.currentSaunaState) {
-      case 'critical':
-        statusText = `🔥 Critical monitoring (${nextUpdate}s)`;
-        statusClass = 'polling-critical';
-        break;
-      case 'heating':
-        statusText = `🔥 Active monitoring (${nextUpdate}s)`;
-        statusClass = 'polling-heating';
-        break;
-      case 'offline':
-        statusText = `📡 Offline - reduced polling (${Math.round(nextUpdate/60)}m)`;
-        statusClass = 'polling-offline';
-        break;
-      case 'error':
-        statusText = `⚠️ Error backoff (${Math.round(nextUpdate/60)}m)`;
-        statusClass = 'polling-error';
-        break;
-      case 'idle':
-      default:
-        statusText = `💤 Idle monitoring (${Math.round(nextUpdate/60)}m)`;
-        statusClass = 'polling-idle';
-        break;
-    }
-
-    indicator.innerHTML = `<div class="polling-status ${statusClass}">${statusText}</div>`;
-    container.appendChild(indicator);
   }
 
   createSaunaAnimation(

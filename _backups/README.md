@@ -20,32 +20,6 @@ Reg6Dash is a web dashboard that aggregates real-time data from an Ecowitt weath
 - `styles.css` – Tailwind-inspired custom styling for all pages, including responsive layout and animated effects.
 - `setup.sh` – Convenience script to install optional Python or Node dependencies and prepare hooks.
 
-## Sauna Adaptive Polling System
-
-The sauna integration features an intelligent **adaptive polling system** that adjusts update frequency based on sauna state to optimize API usage while maintaining responsiveness:
-
-### Polling Intervals
-- **💤 Idle**: 2 minutes when sauna is off/idle (conserves API calls)
-- **🔥 Heating**: 30 seconds when actively heating (responsive updates)  
-- **🔥 Critical**: 15 seconds when within 10°F of target temperature (maximum responsiveness)
-- **📡 Offline**: 5 minutes when sauna is offline (reduces unnecessary load)
-- **⚠️ Error Backoff**: 3+ minutes with exponential backoff after API errors
-
-### Smart State Detection
-The system automatically detects sauna state changes and adjusts polling accordingly:
-- User starts sauna → Immediately switches to heating mode polling
-- Temperature approaches target → Switches to critical monitoring
-- API errors → Implements exponential backoff to avoid overwhelming the service
-- Sauna goes offline → Reduces polling frequency to conserve resources
-
-### Visual Feedback
-The sauna card displays the current polling status with color-coded indicators showing:
-- Current monitoring mode (idle/heating/critical/offline/error)
-- Time until next update
-- Visual cues using emojis and status colors
-
-This approach respects HUUM's API rate limits while ensuring users get timely updates when the sauna is actively being used.
-
 ## Data Flow
 
 1. **Initialization**
@@ -59,9 +33,8 @@ This approach respects HUUM's API rate limits while ensuring users get timely up
 
 3. **Sauna Control**
    - `WeatherDashboard` uses `fetchSaunaData` to poll the HUUM controller and determine current status, heating progress, or error states.
-   - Clicking the "Turn Sauna On/Off" button triggers `toggleSauna`, which sends an authenticated POST request to the controller API.
+   - Clicking the “Turn Sauna On/Off” button triggers `toggleSauna`, which sends an authenticated POST request to the controller API.
    - UI classes reflect the sauna state: heating, offline, locked, or emergency stop.
-   - **Adaptive polling** automatically adjusts update frequency based on sauna state.
 
 4. **Animations and Themes**
    - Temperature, pressure, and wind cards create dynamic DOM elements for sun/cloud effects, atmospheric particles, and swirling wind lines.
@@ -73,7 +46,7 @@ This approach respects HUUM's API rate limits while ensuring users get timely up
    - The last update time displays the most recent successful fetch.
 
 6. **Historical Charts**
-   - `history.js` offers dropdown ranges (1h, 24h, 7d, 30d). It assembles start and end timestamps and queries Ecowitt's `/device/history` API.
+   - `history.js` offers dropdown ranges (1h, 24h, 7d, 30d). It assembles start and end timestamps and queries Ecowitt’s `/device/history` API.
    - Data points are plotted using Chart.js in three charts: temperature/humidity, wind speed/gust, and pressure.
 
 ## Running Locally

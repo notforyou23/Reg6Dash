@@ -192,49 +192,6 @@ body {
   pointer-events: none;
 }
 
-/* Sauna polling status indicators */
-.polling-indicator {
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  opacity: 0.8;
-}
-
-.polling-status {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.polling-critical {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.polling-heating {
-  background: rgba(249, 115, 22, 0.2);
-  color: #f97316;
-  border: 1px solid rgba(249, 115, 22, 0.3);
-}
-
-.polling-idle {
-  background: rgba(107, 114, 128, 0.2);
-  color: #6b7280;
-  border: 1px solid rgba(107, 114, 128, 0.3);
-}
-
-.polling-offline {
-  background: rgba(75, 85, 99, 0.2);
-  color: #4b5563;
-  border: 1px solid rgba(75, 85, 99, 0.3);
-}
-
-.polling-error {
-  background: rgba(220, 38, 38, 0.2);
-  color: #dc2626;
-  border: 1px solid rgba(220, 38, 38, 0.3);
-}
-
 @media (max-width: 600px) {
   .time-cards {
     flex-direction: column;

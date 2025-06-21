@@ -8,5 +8,17 @@ export const SAUNA_CONFIG = {
     API_URL: 'https://api.huum.eu/action/home',
     USERNAME: 'notforyou23@gmail.com',
     PASSWORD: 'ofDYxD',
-    UPDATE_INTERVAL: 50000 // 50 seconds
+    // Adaptive polling intervals
+    IDLE_INTERVAL: 120000,        // 2 minutes when sauna is off/idle
+    HEATING_INTERVAL: 30000,      // 30 seconds when actively heating
+    CRITICAL_INTERVAL: 15000,     // 15 seconds when near target temp
+    OFFLINE_INTERVAL: 300000,     // 5 minutes when offline (reduce load)
+    ERROR_BACKOFF_INTERVAL: 180000, // 3 minutes after errors
+    
+    // Temperature thresholds for critical polling
+    CRITICAL_TEMP_THRESHOLD: 10,  // °F from target to switch to critical polling
+    
+    // Error handling
+    MAX_CONSECUTIVE_ERRORS: 3,
+    BACKOFF_MULTIPLIER: 2
 };
